@@ -1,0 +1,6 @@
+{
+  "name": "연천 AI 교육 전문가 플랫폼",
+  "description": "연천 AI 교육 전문가 강사 양성과정 제 1기 공식 커뮤니티 & 교육 관리 플랫폼",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
