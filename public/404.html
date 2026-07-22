@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>연천 AI 교육 전문가 플랫폼</title>
+    <script type="text/javascript">
+      // GitHub Pages SPA Routing Handler
+      (function() {
+        var isGitHubIo = window.location.hostname.endsWith('.github.io');
+        var pathSegments = window.location.pathname.split('/').filter(Boolean);
+        var segmentCount = (isGitHubIo && pathSegments.length > 0) ? 1 : 0;
+        
+        var l = window.location;
+        var repoBase = l.pathname.split('/').slice(0, 1 + segmentCount).join('/');
+        var routePath = l.pathname.slice(repoBase.length);
+        
+        l.replace(
+          l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+          repoBase + '/?p=' + encodeURIComponent(routePath) +
+          (l.search ? '&q=' + encodeURIComponent(l.search.slice(1)) : '') +
+          l.hash
+        );
+      })();
+    </script>
+  </head>
+  <body>
+  </body>
+</html>
