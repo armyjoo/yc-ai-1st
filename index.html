@@ -1,23 +1,1094 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="연천 AI 교육 전문가 강사 양성과정 제1기 공식 커뮤니티 & 플랫폼" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="연천 AI 교육 전문가 강사 양성과정 제1기 공식 커뮤니티 & 플랫폼">
     <title>연천 AI 교육 전문가 플랫폼 | 제1기 공식 커뮤니티</title>
-  </head>
-  <body class="bg-slate-900 text-slate-100 antialiased">
-    <div id="root">
-      <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; font-family: sans-serif; background-color: #0f172a; color: #f8fafc; text-align: center; padding: 20px;">
-        <div style="width: 48px; height: 48px; border: 4px solid rgba(0,229,255,0.2); border-top-color: #00e5ff; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 20px;"></div>
-        <h2 style="font-size: 18px; font-weight: 700; margin-bottom: 8px;">연천 AI 교육 전문가 플랫폼</h2>
-        <p style="font-size: 13px; color: #94a3b8;">시스템을 로딩하고 있습니다. 잠시만 기다려 주세요...</p>
-        <style>
-          @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        </style>
-      </div>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            light: '#F0F7FF',
+                            primary: '#0066FF',
+                            accent: '#00E5FF',
+                            dark: '#0B192C',
+                            slate: '#F8FAFC'
+                        }
+                    },
+                    boxShadow: {
+                        'neon': '0 0 15px rgba(0, 229, 255, 0.3)',
+                        'glow': '0 0 25px rgba(0, 102, 255, 0.15)'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;600;700;800&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Pretendard', -apple-system, sans-serif;
+        }
+        .tech-font {
+            font-family: 'Orbitron', sans-serif;
+        }
+        .gradient-bg {
+            background: radial-gradient(circle at 10% 20%, rgba(240, 247, 255, 1) 0%, rgba(255, 255, 255, 1) 90%);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 102, 255, 0.1);
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.3s ease-in-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen text-slate-800 flex flex-col justify-between antialiased">
+
+    <header class="w-full glass-card sticky top-0 z-40 border-b border-blue-100 shadow-sm">
+        <!-- Slogan Belt -->
+        <div class="bg-gradient-to-r from-brand-primary to-brand-accent text-white py-1.5 px-4 text-center text-xs md:text-sm font-semibold tracking-wider flex justify-center items-center gap-2">
+            <span class="tech-font uppercase tracking-widest text-[10px] bg-white/20 px-2 py-0.5 rounded">NEXT GEN</span>
+            <span>연천의 미래를 밝히는 AI 교육 인재 양성소</span>
+        </div>
+        <!-- Logo & Navigation -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex justify-between items-center">
+            <!-- Logo area -->
+            <a href="#" onclick="switchTab('home')" class="flex items-center gap-3 group">
+                <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-brand-primary to-brand-accent flex items-center justify-center text-white text-xl shadow-md group-hover:rotate-12 transition-transform duration-300">
+                    <i class="fa-solid fa-brain-circuit"></i>
+                </div>
+                <div>
+                    <span class="text-xl font-extrabold tracking-tight text-brand-dark flex items-center gap-1.5">
+                        연천 AI <span class="text-brand-primary font-bold text-base bg-blue-50 px-2 py-0.5 rounded">1기</span>
+                    </span>
+                    <p class="text-[10px] text-slate-400 tracking-widest uppercase tech-font">AI Specialists Platform</p>
+                </div>
+            </a>
+
+            <!-- Navigation Links -->
+            <nav class="hidden lg:flex items-center gap-1">
+                <button onclick="switchTab('home')" class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold text-brand-primary bg-blue-50 transition-colors">소개 & 인사말</button>
+                <button onclick="switchTab('footprints')" class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-brand-primary hover:bg-slate-50 transition-colors">교육의 발자취</button>
+                <button onclick="switchTab('showcase')" class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-brand-primary hover:bg-slate-50 transition-colors">강사 활동갤러리</button>
+                <button onclick="switchTab('consulting')" class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-brand-primary hover:bg-slate-50 transition-colors">교육상담 & 신청</button>
+                <button onclick="switchTab('instructor-room')" class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-brand-primary hover:bg-slate-50 transition-colors">강사실 (자료실)</button>
+                <button onclick="switchTab('notice')" class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-brand-primary hover:bg-slate-50 transition-colors">공지사항</button>
+                <button id="nav-admin-btn" onclick="switchTab('admin')" class="hidden nav-btn px-4 py-2 rounded-lg text-sm font-semibold text-red-500 hover:bg-red-50 transition-colors"><i class="fa-solid fa-gears mr-1"></i>관리자</button>
+            </nav>
+
+            <!-- Authentication Status -->
+            <div class="flex items-center gap-3">
+                <div id="user-profile-widget" class="hidden text-right">
+                    <span id="widget-user-name" class="text-xs font-bold text-slate-700 block"></span>
+                    <span id="widget-user-role" class="text-[10px] bg-blue-100 text-brand-primary px-1.5 py-0.2 rounded-full font-medium"></span>
+                </div>
+                <button id="auth-main-btn" onclick="openAuthModal()" class="bg-brand-dark text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-brand-primary transition-all duration-300 shadow-md flex items-center gap-2">
+                    <i class="fa-solid fa-right-to-bracket"></i> 로그인 / 가입
+                </button>
+                <button id="auth-logout-btn" onclick="handleLogout()" class="hidden bg-slate-200 text-slate-700 px-4 py-2.5 rounded-xl text-sm font-semibold hover:bg-red-100 hover:text-red-600 transition-all duration-300 flex items-center gap-1">
+                    <i class="fa-solid fa-right-from-bracket"></i> 로그아웃
+                </button>
+                <!-- Mobile Menu Button -->
+                <button onclick="toggleMobileMenu()" class="lg:hidden text-2xl text-slate-700 p-2"><i class="fa-solid fa-bars"></i></button>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden lg:hidden border-t border-slate-100 bg-white/95 px-4 py-3 space-y-2">
+            <button onclick="switchTab('home'); toggleMobileMenu()" class="block w-full text-left px-3 py-2.5 rounded-lg text-sm font-semibold text-slate-700 hover:bg-slate-50">소개 & 인사말</button>
+            <button onclick="switchTab('footprints'); toggleMobileMenu()" class="block w-full text-left px-3 py-2.5 rounded-lg text-sm font-semibold text-slate-700 hover:bg-slate-50">교육의 발자취</button>
+            <button onclick="switchTab('showcase'); toggleMobileMenu()" class="block w-full text-left px-3 py-2.5 rounded-lg text-sm font-semibold text-slate-700 hover:bg-slate-50">강사 활동갤러리</button>
+            <button onclick="switchTab('consulting'); toggleMobileMenu()" class="block w-full text-left px-3 py-2.5 rounded-lg text-sm font-semibold text-slate-700 hover:bg-slate-50">교육상담 & 신청</button>
+            <button onclick="switchTab('instructor-room'); toggleMobileMenu()" class="block w-full text-left px-3 py-2.5 rounded-lg text-sm font-semibold text-slate-700 hover:bg-slate-50">강사실 (자료실)</button>
+            <button onclick="switchTab('notice'); toggleMobileMenu()" class="block w-full text-left px-3 py-2.5 rounded-lg text-sm font-semibold text-slate-700 hover:bg-slate-50">공지사항</button>
+            <button id="mobile-admin-btn" onclick="switchTab('admin'); toggleMobileMenu()" class="hidden w-full text-left px-3 py-2.5 rounded-lg text-sm font-semibold text-red-500 hover:bg-red-50"><i class="fa-solid fa-gears mr-1"></i>관리자</button>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10">
+
+        <section id="tab-home" class="tab-content space-y-12 animate-fade-in">
+            <!-- Hero banner -->
+            <div class="relative bg-brand-dark rounded-3xl overflow-hidden shadow-2xl p-8 md:p-16 flex flex-col justify-center items-start min-h-[380px]">
+                <div class="absolute right-0 top-0 w-1/2 h-full opacity-20 pointer-events-none">
+                    <svg viewBox="0 0 100 100" class="w-full h-full text-brand-accent fill-current">
+                        <polygon points="50,0 100,50 50,100 0,50" />
+                    </svg>
+                </div>
+                <span class="text-brand-accent tech-font font-bold tracking-widest text-xs md:text-sm bg-white/10 px-4 py-1.5 rounded-full mb-4"><i class="fa-solid fa-circle-nodes mr-2"></i>THE FIRST GENERATION</span>
+                <h1 class="text-3xl md:text-5xl font-extrabold text-white leading-tight mb-4">
+                    연천 미래 교육의 혁신 주역,<br>
+                    <span class="bg-gradient-to-r from-blue-400 to-brand-accent bg-clip-text text-transparent">AI 교육 전문가 제1기</span>
+                </h1>
+                <p class="text-slate-300 max-w-2xl leading-relaxed text-sm md:text-base">
+                    우리는 연천 청소년과 시민들의 디지털 성장을 견인할 검증된 AI 전문가 집단입니다. 융합형 교육 콘텐츠 설계부터 맞춤형 학교 출강까지 미래지향적 인재 양성을 주도합니다.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Platform Introduction Card -->
+                <div class="glass-card rounded-2xl p-8 shadow-glow flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-3 mb-6">
+                            <span class="w-10 h-10 rounded-lg bg-blue-100 text-brand-primary flex items-center justify-center text-lg"><i class="fa-solid fa-circle-info"></i></span>
+                            <h2 class="text-2xl font-bold text-slate-800">플랫폼 개설 목적</h2>
+                        </div>
+                        <p id="txt-intro-content" class="text-slate-600 leading-relaxed mb-6 whitespace-pre-line"></p>
+                    </div>
+                    <button onclick="openEditor('intro')" class="admin-action hidden self-end text-xs text-brand-primary font-bold hover:underline"><i class="fa-solid fa-pen-to-square mr-1"></i>소개 글 수정</button>
+                </div>
+
+                <!-- Leader Greetings Card -->
+                <div class="glass-card rounded-2xl p-8 shadow-glow flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-3 mb-6">
+                            <span class="w-10 h-10 rounded-lg bg-emerald-100 text-emerald-600 flex items-center justify-center text-lg"><i class="fa-solid fa-users"></i></span>
+                            <h2 class="text-2xl font-bold text-slate-800">지역 인재 육성을 위한 인사말</h2>
+                        </div>
+                        <p id="txt-greetings-content" class="text-slate-600 leading-relaxed mb-6 whitespace-pre-line"></p>
+                    </div>
+                    <button onclick="openEditor('greetings')" class="admin-action hidden self-end text-xs text-brand-primary font-bold hover:underline"><i class="fa-solid fa-pen-to-square mr-1"></i>인사말 수정</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="tab-footprints" class="tab-content space-y-8 hidden animate-fade-in">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-brand-primary font-bold text-sm tracking-wider uppercase">Yeoncheon Youth Center Timeline</span>
+                <h2 class="text-3xl font-extrabold text-slate-900 mt-2">연천 AI 교육 전문가 과정의 발자취</h2>
+                <p class="text-slate-500 mt-2">연천 청소년센터와 힘을 모아 밤낮없이 교육받으며 성장해 온 소중한 기록들입니다.</p>
+            </div>
+
+            <div class="relative border-l border-blue-200 max-w-4xl mx-auto pl-6 ml-4 md:ml-auto">
+                <div class="mb-10 relative">
+                    <span class="absolute -left-[37px] top-1.5 bg-brand-primary text-white w-6 h-6 rounded-full flex items-center justify-center text-xs shadow-md"><i class="fa-solid fa-star"></i></span>
+                    <div class="glass-card p-6 rounded-xl shadow-sm">
+                        <span class="text-brand-primary font-bold text-sm tech-font">2026.04.12</span>
+                        <h3 class="text-lg font-bold text-slate-900 mt-1">연천 AI 전문가 양성과정 제 1기 개강</h3>
+                        <p class="text-slate-600 text-sm mt-2">연천 청소년센터 교육실에서 역사적인 첫 수업이 시작되었습니다. 생성형 AI 트렌드와 기초 디지털 교육론을 다루었습니다.</p>
+                    </div>
+                </div>
+                <div class="mb-10 relative">
+                    <span class="absolute -left-[37px] top-1.5 bg-brand-accent text-white w-6 h-6 rounded-full flex items-center justify-center text-xs shadow-md"><i class="fa-solid fa-code"></i></span>
+                    <div class="glass-card p-6 rounded-xl shadow-sm">
+                        <span class="text-brand-accent font-bold text-sm tech-font">2026.05.20</span>
+                        <h3 class="text-lg font-bold text-slate-900 mt-1">AI 융합 수업 설계 워크숍 및 세미나</h3>
+                        <p class="text-slate-600 text-sm mt-2">학교 출강 수업에 실전 도입할 '나만의 교재 설계' 작업에 돌입, 강사진 개별 코칭 및 열띤 시뮬레이션 수업 실습을 완수했습니다.</p>
+                    </div>
+                </div>
+                <div class="mb-10 relative">
+                    <span class="absolute -left-[37px] top-1.5 bg-indigo-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs shadow-md"><i class="fa-solid fa-award"></i></span>
+                    <div class="glass-card p-6 rounded-xl shadow-sm">
+                        <span class="text-indigo-500 font-bold text-sm tech-font">2026.06.28</span>
+                        <h3 class="text-lg font-bold text-slate-900 mt-1">수료식 및 최종 교육 시연 평가회</h3>
+                        <p class="text-slate-600 text-sm mt-2">전문 심사 위원단의 피드백 과정을 거쳐 모의 수업 시연을 성황리에 수행하였고, 1기 공식 강사 자격의 수료증을 전달받았습니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tab-showcase" class="tab-content space-y-8 hidden animate-fade-in">
+            <div class="flex justify-between items-end">
+                <div>
+                    <span class="text-brand-primary font-bold text-sm tracking-wider">Showcase Gallery</span>
+                    <h2 class="text-3xl font-extrabold text-slate-900 mt-1">강사진 활동 및 교육 현장 홍보</h2>
+                    <p class="text-slate-500 text-sm mt-1">강사 선생님들이 설계한 명품 AI 융합 수업의 역량을 보여드립니다.</p>
+                </div>
+                <button id="btn-add-showcase" onclick="openShowcaseModal()" class="hidden bg-brand-primary text-white px-4 py-2 rounded-xl text-sm font-semibold hover:bg-brand-primary/95 transition-all shadow-md">
+                    <i class="fa-solid fa-plus mr-1.5"></i> 활동 등록
+                </button>
+            </div>
+
+            <div id="showcase-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        </section>
+
+        <section id="tab-consulting" class="tab-content space-y-8 hidden animate-fade-in">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-1 space-y-6">
+                    <div class="glass-card rounded-2xl p-8 shadow-glow">
+                        <span class="text-brand-primary font-bold text-sm">Consultation</span>
+                        <h2 class="text-2xl font-extrabold text-slate-900 mt-1 mb-4">교육 상담 및 출강 신청</h2>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                            연천의 각급 초·중·고등학교, 기관 및 기업을 위해 수준 높은 맞춤형 생성형 AI 및 디지털 혁신 교육과정을 출강합니다. 
+                            교육 예산, 일정, 맞춤 커리큘럼 등을 작성해 신청해 주시면 최우수 1기 매칭 강사가 정밀 배정됩니다.
+                        </p>
+                        <div class="space-y-3.5 text-sm text-slate-600 border-t border-slate-100 pt-5">
+                            <div class="flex items-center gap-3"><i class="fa-solid fa-phone text-brand-primary"></i> <span>연천 교육지원협력단 (031-839-XXXX)</span></div>
+                            <div class="flex items-center gap-3"><i class="fa-solid fa-envelope text-brand-primary"></i> <span>yeoncheon.ai@gmail.com</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-2">
+                    <div class="glass-card rounded-2xl p-8 shadow-glow">
+                        <h3 class="text-xl font-bold text-slate-900 mb-6">온라인 교육 파견/상담 신청하기</h3>
+                        <form id="consulting-form" onsubmit="handleConsultingSubmit(event)" class="space-y-4">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-600 mb-1.5">기관/학교명 <span class="text-red-500">*</span></label>
+                                    <input type="text" id="consult-org" required class="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-primary">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-600 mb-1.5">신청자 성함 <span class="text-red-500">*</span></label>
+                                    <input type="text" id="consult-name" required class="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-primary">
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-600 mb-1.5">연락처 <span class="text-red-500">*</span></label>
+                                    <input type="tel" placeholder="010-XXXX-XXXX" id="consult-phone" required class="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-primary">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-600 mb-1.5">희망 교육 카테고리</label>
+                                    <select id="consult-category" class="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-primary bg-white">
+                                        <option value="초등 생성형 AI 기초">초등 생성형 AI 기초 및 놀이식 교육</option>
+                                        <option value="중고등 코딩 융합 프로젝트">중고등 AI-코딩 융합 프로젝트</option>
+                                        <option value="일반인 및 학부모 특강">성인/공직자/학부모 대상 트렌드 강의</option>
+                                        <option value="기타 상담">기타 맞춤식 커리큘럼 문의</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 mb-1.5">요청 내용 상세 <span class="text-red-500">*</span></label>
+                                <textarea id="consult-details" rows="5" required placeholder="원하시는 대략적인 일정, 인원, 중점 교육사항 등을 입력해 주세요." class="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-primary"></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-gradient-to-r from-brand-primary to-brand-accent text-white font-semibold py-4 rounded-xl shadow-md hover:shadow-lg transition-all">
+                                교육 상담 및 출강 신청 접수
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tab-instructor-room" class="tab-content space-y-8 hidden animate-fade-in">
+            <div class="flex justify-between items-end border-b border-slate-100 pb-5">
+                <div>
+                    <span class="text-brand-primary font-bold text-sm tracking-wider uppercase">Instructor Space Only</span>
+                    <h2 class="text-3xl font-extrabold text-slate-900 mt-1">강사실 (자료실)</h2>
+                    <p class="text-slate-500 text-sm mt-1">1기 승인 완료된 정강사 선생님들만 열람 및 수정할 수 있는 비공개 자료공간입니다.</p>
+                </div>
+                <button id="btn-add-material" onclick="openMaterialModal()" class="hidden bg-slate-900 text-white px-4 py-2.5 rounded-xl text-sm font-semibold hover:bg-slate-800 transition-all shadow-md">
+                    <i class="fa-solid fa-upload mr-1.5"></i> 새 자료 공유
+                </button>
+            </div>
+
+            <!-- Lock Gate Screen -->
+            <div id="instructor-room-lock" class="glass-card rounded-2xl p-12 text-center max-w-xl mx-auto space-y-5">
+                <div class="w-16 h-16 bg-red-50 text-red-500 rounded-full flex items-center justify-center text-2xl mx-auto"><i class="fa-solid fa-lock-keyhole"></i></div>
+                <h3 class="text-xl font-bold text-slate-900">비공개 제한 구역</h3>
+                <p id="lbl-lock-reason" class="text-slate-500 text-sm leading-relaxed">
+                    본 공간은 연천 AI 1기 강사진 인증(관리자 가입 승인 완료) 후 접근할 수 있는 교안/계획표 수록실입니다. 로그인 후 권한을 확인해 주십시오.
+                </p>
+                <button onclick="openAuthModal()" class="bg-brand-primary text-white text-sm font-semibold px-6 py-3 rounded-xl hover:bg-blue-700 transition shadow">
+                    강사 계정으로 로그인하기
+                </button>
+            </div>
+
+            <!-- Instructor Space Content -->
+            <div id="instructor-room-content" class="hidden grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-2 space-y-6">
+                    <div class="glass-card rounded-2xl p-6 shadow-sm">
+                        <h3 class="text-lg font-bold text-slate-900 mb-4"><i class="fa-solid fa-calendar-week text-brand-primary mr-1.5"></i>공동 강의 일정표 및 조율</h3>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse text-sm">
+                                <thead>
+                                    <tr class="border-b border-slate-100 text-slate-500 text-xs">
+                                        <th class="pb-3 font-semibold">진행 예정처</th>
+                                        <th class="pb-3 font-semibold">담당 강사</th>
+                                        <th class="pb-3 font-semibold">과목/학급</th>
+                                        <th class="pb-3 font-semibold">상태</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-100 text-slate-700">
+                                    <tr>
+                                        <td class="py-3 font-medium">연천 전곡초등학교</td>
+                                        <td class="py-3">이강사, 박강사</td>
+                                        <td class="py-3">생성형 AI 기초 (5학급)</td>
+                                        <td class="py-3"><span class="bg-amber-100 text-amber-800 text-[11px] px-2 py-0.5 rounded-full">교안제출 완료</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-3 font-medium">연천군 청소년수련관</td>
+                                        <td class="py-3 font-bold text-brand-primary">강사 모집 중</td>
+                                        <td class="py-3">AI 융합 아트 특강</td>
+                                        <td class="py-3"><span class="bg-blue-100 text-brand-primary text-[11px] px-2 py-0.5 rounded-full">지원 가능</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="glass-card rounded-2xl p-6 shadow-sm">
+                        <h3 class="text-lg font-bold text-slate-900 mb-4"><i class="fa-solid fa-folder-open text-brand-primary mr-1.5"></i>전용 수업 계획서 & 교안 창고</h3>
+                        <div id="materials-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-1">
+                    <div class="glass-card bg-slate-900 text-white rounded-2xl p-6 space-y-4 shadow-xl">
+                        <h3 class="text-lg font-bold flex items-center gap-2"><i class="fa-solid fa-circle-exclamation text-brand-accent"></i> 강사 단톡방 공지사항</h3>
+                        <ul class="space-y-3.5 text-slate-300 text-xs leading-relaxed">
+                            <li class="border-b border-white/10 pb-3">
+                                <strong class="text-white block text-sm mb-1">[공동 프로젝트]</strong> 2분기 초등 공통 주교재 최종본 수집 완료되었습니다. PDF로 인쇄해 나가시기 바랍니다.
+                            </li>
+                            <li class="border-b border-white/10 pb-3">
+                                <strong class="text-white block text-sm mb-1">[출강 팁]</strong> 각 학교에 가실 때는 연천 교육센터 배포 전용 패스를 가슴에 부착해 주십시오.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tab-notice" class="tab-content space-y-6 hidden animate-fade-in">
+            <div class="flex justify-between items-end border-b border-slate-100 pb-5">
+                <div>
+                    <span class="text-brand-primary font-bold text-sm tracking-wider uppercase">Official Announcement</span>
+                    <h2 class="text-3xl font-extrabold text-slate-900 mt-1">공지사항</h2>
+                </div>
+                <button id="btn-add-notice" onclick="openNoticeModal()" class="hidden bg-brand-primary text-white px-4 py-2.5 rounded-xl text-sm font-semibold hover:bg-brand-primary/95 transition-all shadow-md">
+                    <i class="fa-solid fa-pen-fancy mr-1.5"></i> 공지글 작성
+                </button>
+            </div>
+
+            <div id="notices-list" class="space-y-4 max-w-4xl mx-auto"></div>
+        </section>
+
+        <section id="tab-admin" class="tab-content space-y-8 hidden animate-fade-in">
+            <div class="border-b border-slate-100 pb-5">
+                <h2 class="text-3xl font-extrabold text-slate-900"><i class="fa-solid fa-gears text-brand-primary mr-1"></i> 종합 관리자 패널</h2>
+                <p class="text-slate-500 text-sm mt-1">회원 등급 가입 관리, 강사 승인 처리, 교육 출강 상담 현황을 일괄 제어합니다.</p>
+            </div>
+
+            <div class="grid grid-cols-1 xl:grid-cols-2 gap-8">
+                <div class="glass-card rounded-2xl p-6 shadow-sm">
+                    <h3 class="text-lg font-bold text-slate-900 mb-4 flex items-center justify-between">
+                        <span><i class="fa-solid fa-users-gear text-brand-primary mr-1.5"></i> 강사진 및 회원 승인 관리</span>
+                        <span id="lbl-pending-count" class="text-xs bg-red-100 text-red-600 px-2 py-0.5 rounded-full font-semibold">대기 0명</span>
+                    </h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm">
+                            <thead>
+                                <tr class="border-b border-slate-100 text-slate-500 text-xs">
+                                    <th class="pb-2">성함</th>
+                                    <th class="pb-2">이메일</th>
+                                    <th class="pb-2">회원 유형</th>
+                                    <th class="pb-2">상태</th>
+                                    <th class="pb-2 text-right">관리 조치</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-users-tbody" class="divide-y divide-slate-100 text-slate-700"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-2xl p-6 shadow-sm">
+                    <h3 class="text-lg font-bold text-slate-900 mb-4"><i class="fa-solid fa-inbox text-emerald-600 mr-1.5"></i> 교육 상담 & 출강 의뢰 인박스</h3>
+                    <div id="admin-consulting-list" class="space-y-4 max-h-[400px] overflow-y-auto"></div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-brand-dark text-slate-400 py-12 mt-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="space-y-3">
+                <span class="text-lg font-extrabold tracking-tight text-white flex items-center gap-2">
+                    <i class="fa-solid fa-brain-circuit text-brand-accent"></i> 연천 AI 전문가 1기
+                </span>
+                <p class="text-xs text-slate-500 leading-relaxed">
+                    경기도 연천 지역의 미래 교육 인프라 확보와 격차 해소를 위해 창립된 AI 융합 전문 교육 연구팀입니다.
+                </p>
+            </div>
+            <div class="space-y-2">
+                <h4 class="text-sm font-bold text-white uppercase tracking-wider">주요 연계기관 및 협력망</h4>
+                <p class="text-xs text-slate-500">연천 청소년수련관 / 청소년문화의집 / 경기도연천교육지원청 협력단</p>
+            </div>
+            <div class="text-xs space-y-1 md:text-right">
+                <p>&copy; 2026 연천 AI 교육 전문가 과정 1기 대표 운영팀.</p>
+                <p>All Rights Reserved. Created dynamically with Google AI Studio.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div id="auth-modal" class="hidden fixed inset-0 z-50 bg-brand-dark/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl w-full max-w-md overflow-hidden shadow-2xl relative border border-slate-100 flex flex-col justify-between">
+            <button onclick="closeAuthModal()" class="absolute right-5 top-5 text-slate-400 hover:text-slate-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
+            <div class="p-8">
+                <div class="flex border-b border-slate-100 mb-6">
+                    <button id="modal-tab-login" onclick="toggleAuthMode('login')" class="flex-1 pb-3 text-center text-sm font-bold border-b-2 border-brand-primary text-brand-primary">로그인</button>
+                    <button id="modal-tab-register" onclick="toggleAuthMode('register')" class="flex-1 pb-3 text-center text-sm font-bold border-b-2 border-transparent text-slate-400">회원 가입</button>
+                </div>
+
+                <form id="auth-form" onsubmit="handleAuthSubmit(event)">
+                    <div class="space-y-4">
+                        <div id="register-fields" class="hidden space-y-4 animate-fade-in">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 mb-1">성함 <span class="text-red-500">*</span></label>
+                                <input type="text" id="auth-name" class="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-primary">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 mb-1">가입 목적 구분 <span class="text-red-500">*</span></label>
+                                <select id="auth-role" class="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-primary bg-white">
+                                    <option value="general">일반 이용자 (교육의뢰/예비 수강자)</option>
+                                    <option value="instructor">연천 AI 1기 정강사 (관리자 승인 필수)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">이메일 주소 <span class="text-red-500">*</span></label>
+                            <input type="email" id="auth-email" required class="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-primary">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">비밀번호 <span class="text-red-500">*</span></label>
+                            <input type="password" id="auth-password" required class="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-primary">
+                        </div>
+                    </div>
+
+                    <button type="submit" id="auth-submit-btn" class="w-full bg-brand-primary text-white font-semibold py-3 rounded-xl mt-6 hover:brightness-105 transition-all">
+                        로그인 완료
+                    </button>
+                </form>
+            </div>
+            <div class="bg-blue-50 py-3 px-6 text-center text-[11px] text-brand-primary font-medium flex items-center justify-center gap-1.5">
+                <i class="fa-solid fa-lightbulb"></i>
+                <span>데모 관리자 계정: admin@yeoncheon.ai</span>
+            </div>
+        </div>
     </div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+
+    <div id="editor-modal" class="hidden fixed inset-0 z-50 bg-brand-dark/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl w-full max-w-lg overflow-hidden shadow-2xl relative border border-slate-100 p-8">
+            <button onclick="closeEditorModal()" class="absolute right-5 top-5 text-slate-400 hover:text-slate-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
+            <h3 id="editor-title" class="text-xl font-bold text-slate-900 mb-6">게시글 작성</h3>
+            <form onsubmit="handleEditorSubmit(event)" class="space-y-4">
+                <div id="editor-fields-area"></div>
+                <div class="flex justify-end gap-3 pt-4">
+                    <button type="button" onclick="closeEditorModal()" class="px-5 py-2.5 rounded-xl text-sm font-semibold bg-slate-100 hover:bg-slate-200 text-slate-600">취소</button>
+                    <button type="submit" class="px-5 py-2.5 rounded-xl text-sm font-semibold bg-brand-primary text-white hover:brightness-105 transition-all">저장 및 반영</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Custom Confirmation Modal -->
+    <div id="confirm-modal" class="hidden fixed inset-0 z-50 bg-brand-dark/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl w-full max-w-sm overflow-hidden shadow-2xl p-6 space-y-4 text-center">
+            <div class="w-12 h-12 bg-red-100 text-red-500 rounded-full flex items-center justify-center text-xl mx-auto"><i class="fa-solid fa-triangle-exclamation"></i></div>
+            <h3 class="text-lg font-bold text-slate-900">확인 요청</h3>
+            <p id="confirm-modal-msg" class="text-slate-600 text-sm leading-relaxed"></p>
+            <div class="flex justify-center gap-3 pt-2">
+                <button onclick="closeConfirmModal(false)" class="px-4 py-2 rounded-xl text-xs font-bold bg-slate-100 text-slate-600 hover:bg-slate-200">취소</button>
+                <button onclick="closeConfirmModal(true)" class="px-4 py-2 rounded-xl text-xs font-bold bg-red-600 text-white hover:bg-red-700">확인 (진행)</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+    <script>
+        let activeTab = 'home';
+        let authMode = 'login';
+        let currentUser = null;
+        let activeEditorMode = '';
+        let pendingConfirmCallback = null;
+
+        const dbFallback = {
+            intro: `본 플랫폼은 경기도 연천군의 첨단 과학 기술 교육 활성화와 지속적인 인재 발굴을 도모하기 위해 설립되었습니다. 
+                    체계적인 교육과정을 이수한 제 1기 연천 AI 교육 전문가들이 모여 연천 관내 초중고 학교 현장과 연계해 첨단 미래 역량을 실무형 교육으로 전달하고 소통할 수 있는 허브 공간입니다.`,
+            greetings: `"미래 사회는 스스로 변화를 만들어 나가는 AI 융합 전문가들을 절실히 필요로 합니다. 
+                    연천의 교육 인프라를 혁신하고 지리적 한계를 뛰어넘는 양질의 교육 혜택을 제공하여, 연천에서 자란 청소년들이 글로벌 AI 인재들과 어깨를 나란히 할 수 있도록 발판을 튼튼히 다지겠습니다. 1기 강사진들이 선도적 열정으로 보탬이 되겠습니다."`,
+            users: [
+                { email: 'admin@yeoncheon.ai', name: '대표 운영국', role: 'admin', approved: true },
+                { email: 'test1@naver.com', name: '김동규 강사', role: 'instructor', approved: true },
+                { email: 'teacher@naver.com', name: '민지혜 강사', role: 'instructor', approved: false }
+            ],
+            notices: [
+                { id: 1, title: '[안내] 제1기 연천 AI전문가 양성과정 수강 후기 공유 요청', content: '선생님들께서 연천 청소년 센터에서 수강하며 수확하셨던 소중한 경험과 건의사항을 공유해 주세요.', date: '2026-07-15', author: '대표 운영국' },
+                { id: 2, title: '[공지] 상반기 초중고 융합 AI 교보재 신청 방법', content: '강사실 자료실에 탑재된 신청서를 다운로드하셔서 매월 10일 전까지 구글 폼으로 접수 바랍니다.', date: '2026-07-10', author: '대표 운영국' }
+            ],
+            showcase: [
+                { id: 1, title: '생성형 이미지 AI 활용 창의 수업 설계', instructor: '김동규 강사', description: '생성형 AI 미드저니와 캔바를 연계하여, 나만의 동화 캐릭터를 그리는 초등 미술 융합 세션입니다.', imageUrl: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=600' },
+                { id: 2, title: '연천 청소년 AI 코딩 기반 자율주행 실습', instructor: '민지혜 강사', description: '티처블머신 모델과 아두이노 차량을 제어해 보는 사물인식 머신러닝 교과 과정입니다.', imageUrl: 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&q=80&w=600' }
+            ],
+            materials: [
+                { id: 1, title: '1학기 초등 AI 윤리 및 저작권 가이드북.pdf', category: '수업 보조자료', author: '김동규 강사' },
+                { id: 2, title: '엔트리-머신러닝 카메라 제어 매뉴얼.docx', category: '강의계획서/매뉴얼', author: '대표 운영국' }
+            ],
+            applications: [
+                { id: 1, org: '전곡중학교', name: '홍길동 부장교사', phone: '010-1234-5678', category: '중고등 코딩 융합 프로젝트', details: '중학교 2학년 자유학기제용 10차시 AI 코딩 특별학기 강의 개설을 의뢰합니다.', date: '2026-07-16' }
+            ]
+        };
+
+        function initLocalDB() {
+            Object.keys(dbFallback).forEach(key => {
+                if (!localStorage.getItem(`yc_db_${key}`)) {
+                    localStorage.setItem(`yc_db_${key}`, JSON.stringify(dbFallback[key]));
+                }
+            });
+        }
+        initLocalDB();
+
+        function getData(key) {
+            return JSON.parse(localStorage.getItem(`yc_db_${key}`));
+        }
+        function saveData(key, val) {
+            localStorage.setItem(`yc_db_${key}`, JSON.stringify(val));
+        }
+
+        // Custom Non-blocking Toast notification UI
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            const bgClass = type === 'error' ? 'bg-red-600' : type === 'success' ? 'bg-emerald-600' : 'bg-slate-800';
+            toast.className = `${bgClass} text-white text-xs md:text-sm font-semibold px-5 py-3 rounded-xl shadow-xl transition-all duration-300 transform translate-y-2 opacity-0 pointer-events-auto flex items-center gap-2`;
+            toast.innerHTML = `<i class="fa-solid ${type === 'error' ? 'fa-triangle-exclamation' : type === 'success' ? 'fa-circle-check' : 'fa-circle-info'}"></i> <span>${message}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => { toast.classList.remove('translate-y-2', 'opacity-0'); }, 10);
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-2');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        function openConfirmModal(message, callback) {
+            document.getElementById('confirm-modal-msg').innerText = message;
+            pendingConfirmCallback = callback;
+            document.getElementById('confirm-modal').classList.remove('hidden');
+        }
+        function closeConfirmModal(result) {
+            document.getElementById('confirm-modal').classList.add('hidden');
+            if (result && pendingConfirmCallback) {
+                pendingConfirmCallback();
+            }
+            pendingConfirmCallback = null;
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            renderContent();
+            checkAndApplySession();
+        });
+
+        function switchTab(tabId) {
+            activeTab = tabId;
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('text-brand-primary', 'bg-blue-50');
+                btn.classList.add('text-slate-600');
+            });
+            if(event && event.currentTarget && event.currentTarget.classList) {
+                event.currentTarget.classList.add('text-brand-primary', 'bg-blue-50');
+            }
+
+            renderContent();
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+
+        function renderContent() {
+            document.getElementById('txt-intro-content').innerText = getData('intro');
+            document.getElementById('txt-greetings-content').innerText = getData('greetings');
+
+            // 1. Showcase
+            const showcaseGrid = document.getElementById('showcase-grid');
+            const showcases = getData('showcase');
+            showcaseGrid.innerHTML = showcases.map(item => `
+                <div class="glass-card rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between">
+                    <img src="${item.imageUrl}" alt="${item.title}" class="w-full h-48 object-cover">
+                    <div class="p-6 flex-grow flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs bg-blue-50 text-brand-primary font-bold px-2 py-1 rounded">${item.instructor}</span>
+                            <h4 class="text-lg font-bold text-slate-900 mt-2.5">${item.title}</h4>
+                            <p class="text-slate-500 text-sm mt-2 leading-relaxed">${item.description}</p>
+                        </div>
+                        ${currentUser && (currentUser.role === 'admin' || currentUser.name === item.instructor) ? `
+                            <button onclick="deleteShowcase(${item.id})" class="mt-4 text-xs text-red-500 hover:underline self-start"><i class="fa-solid fa-trash-can mr-1"></i>삭제</button>
+                        ` : ''}
+                    </div>
+                </div>
+            `).join('');
+
+            // 2. Instructor Room Materials
+            const materialsGrid = document.getElementById('materials-grid');
+            const materials = getData('materials');
+            materialsGrid.innerHTML = materials.map(item => `
+                <div class="p-4 bg-slate-50 border border-slate-100 rounded-xl flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <span class="text-2xl text-amber-500"><i class="fa-regular fa-file-pdf"></i></span>
+                        <div>
+                            <span class="text-[10px] text-slate-400 font-bold uppercase">${item.category}</span>
+                            <h4 class="text-sm font-semibold text-slate-800 line-clamp-1">${item.title}</h4>
+                            <p class="text-[10px] text-slate-500">등록자: ${item.author}</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button onclick="showToast('${item.title} 파일이 다운로드됩니다.', 'success')" class="p-2 text-slate-400 hover:text-brand-primary"><i class="fa-solid fa-download"></i></button>
+                        ${currentUser && (currentUser.role === 'admin' || currentUser.name === item.author) ? `
+                            <button onclick="deleteMaterial(${item.id})" class="p-2 text-slate-400 hover:text-red-500"><i class="fa-solid fa-trash-can"></i></button>
+                        ` : ''}
+                    </div>
+                </div>
+            `).join('');
+
+            // 3. Notice Board
+            const noticesList = document.getElementById('notices-list');
+            const notices = getData('notices');
+            noticesList.innerHTML = notices.map(item => `
+                <div class="glass-card p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start">
+                            <span class="text-xs text-slate-400 font-medium">${item.date}</span>
+                            <span class="text-xs font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded">운영국</span>
+                        </div>
+                        <h4 class="text-lg font-bold text-slate-900 mt-2">${item.title}</h4>
+                        <p class="text-slate-600 text-sm mt-3 leading-relaxed whitespace-pre-line">${item.content}</p>
+                    </div>
+                    ${currentUser && currentUser.role === 'admin' ? `
+                        <button onclick="deleteNotice(${item.id})" class="mt-4 text-xs text-red-500 hover:underline self-start"><i class="fa-solid fa-trash-can mr-1"></i>공지글 삭제</button>
+                    ` : ''}
+                </div>
+            `).join('');
+
+            // 4. Admin Users
+            const adminUsersTbody = document.getElementById('admin-users-tbody');
+            const users = getData('users');
+            const pendingCount = users.filter(u => u.role === 'instructor' && !u.approved).length;
+            document.getElementById('lbl-pending-count').innerText = `대기 ${pendingCount}명`;
+
+            adminUsersTbody.innerHTML = users.map(user => `
+                <tr>
+                    <td class="py-3.5 font-semibold text-slate-800">${user.name}</td>
+                    <td class="py-3.5 text-slate-500">${user.email}</td>
+                    <td class="py-3.5">
+                        <span class="text-xs px-2 py-0.5 rounded ${user.role === 'admin' ? 'bg-red-50 text-red-600 font-bold' : user.role === 'instructor' ? 'bg-indigo-50 text-indigo-600 font-medium' : 'bg-slate-100 text-slate-600'}">
+                            ${user.role === 'admin' ? '관리자' : user.role === 'instructor' ? '강사' : '일반'}
+                        </span>
+                    </td>
+                    <td class="py-3.5">
+                        <span class="text-xs ${user.approved ? 'text-emerald-600 font-semibold' : 'text-amber-500 font-bold'}">
+                            ${user.approved ? '정식 활동중' : '승인 대기'}
+                        </span>
+                    </td>
+                    <td class="py-3.5 text-right">
+                        ${user.role === 'instructor' && !user.approved ? `
+                            <button onclick="approveInstructor('${user.email}')" class="bg-emerald-500 text-white px-3 py-1 rounded-lg text-xs font-bold hover:brightness-105">강사 승인</button>
+                        ` : ''}
+                        ${user.role !== 'admin' ? `
+                            <button onclick="deleteUser('${user.email}')" class="text-xs text-red-500 hover:underline ml-2">삭제</button>
+                        ` : '-'}
+                    </td>
+                </tr>
+            `).join('');
+
+            // 5. Admin Applications
+            const adminConsultingList = document.getElementById('admin-consulting-list');
+            const apps = getData('applications');
+            if (apps.length === 0) {
+                adminConsultingList.innerHTML = `<p class="text-xs text-slate-400 text-center py-10">접수된 출강 의뢰가 현재 없습니다.</p>`;
+            } else {
+                adminConsultingList.innerHTML = apps.map(app => `
+                    <div class="p-4 bg-slate-50 border border-slate-100 rounded-xl space-y-2">
+                        <div class="flex justify-between items-start">
+                            <span class="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded">${app.category}</span>
+                            <span class="text-[10px] text-slate-400">${app.date}</span>
+                        </div>
+                        <h4 class="font-bold text-slate-800">${app.org} / ${app.name}</h4>
+                        <p class="text-xs text-slate-500">${app.details}</p>
+                        <div class="flex justify-between items-center border-t border-slate-100 pt-2 text-xs">
+                            <span class="text-brand-primary"><i class="fa-solid fa-phone mr-1"></i>${app.phone}</span>
+                            <button onclick="deleteApplication(${app.id})" class="text-red-500 hover:underline"><i class="fa-solid fa-trash-can mr-1"></i>상담 기록 삭제</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function checkAndApplySession() {
+            if (currentUser) {
+                document.getElementById('auth-main-btn').classList.add('hidden');
+                document.getElementById('auth-logout-btn').classList.remove('hidden');
+                document.getElementById('user-profile-widget').classList.remove('hidden');
+                document.getElementById('widget-user-name').innerText = `${currentUser.name} 님`;
+                document.getElementById('widget-user-role').innerText = currentUser.role === 'admin' ? '운영국(대표)' : currentUser.role === 'instructor' ? '강사회원' : '일반회원';
+
+                if (currentUser.role === 'admin') {
+                    document.getElementById('nav-admin-btn').classList.remove('hidden');
+                    document.getElementById('mobile-admin-btn').classList.remove('hidden');
+                    document.getElementById('btn-add-notice').classList.remove('hidden');
+                    document.querySelectorAll('.admin-action').forEach(el => el.classList.remove('hidden'));
+                } else {
+                    document.getElementById('nav-admin-btn').classList.add('hidden');
+                    document.getElementById('mobile-admin-btn').classList.add('hidden');
+                    document.getElementById('btn-add-notice').classList.add('hidden');
+                    document.querySelectorAll('.admin-action').forEach(el => el.classList.add('hidden'));
+                }
+
+                const isApprovedInstructor = (currentUser.role === 'instructor' && currentUser.approved) || currentUser.role === 'admin';
+                if (isApprovedInstructor) {
+                    document.getElementById('instructor-room-lock').classList.add('hidden');
+                    document.getElementById('instructor-room-content').classList.remove('hidden');
+                    document.getElementById('btn-add-material').classList.remove('hidden');
+                    document.getElementById('btn-add-showcase').classList.remove('hidden');
+                } else {
+                    document.getElementById('instructor-room-lock').classList.remove('hidden');
+                    document.getElementById('instructor-room-content').classList.add('hidden');
+                    document.getElementById('btn-add-material').classList.add('hidden');
+                    document.getElementById('btn-add-showcase').classList.add('hidden');
+
+                    if (currentUser.role === 'instructor' && !currentUser.approved) {
+                        document.getElementById('lbl-lock-reason').innerText = '가입은 완료되었으나, 아직 관리자 승인 대기 단계입니다. 승인 완료 후 즉시 이용 가능합니다.';
+                    } else {
+                        document.getElementById('lbl-lock-reason').innerText = '이곳은 공식 연천 AI 정강사 전용 자료실입니다. 일반 가입 등급은 접근하실 수 없습니다.';
+                    }
+                }
+            } else {
+                document.getElementById('auth-main-btn').classList.remove('hidden');
+                document.getElementById('auth-logout-btn').classList.add('hidden');
+                document.getElementById('user-profile-widget').classList.add('hidden');
+                document.getElementById('nav-admin-btn').classList.add('hidden');
+                document.getElementById('mobile-admin-btn').classList.add('hidden');
+                document.getElementById('btn-add-notice').classList.add('hidden');
+                document.querySelectorAll('.admin-action').forEach(el => el.classList.add('hidden'));
+
+                document.getElementById('instructor-room-lock').classList.remove('hidden');
+                document.getElementById('instructor-room-content').classList.add('hidden');
+                document.getElementById('btn-add-material').classList.add('hidden');
+                document.getElementById('btn-add-showcase').classList.add('hidden');
+                document.getElementById('lbl-lock-reason').innerText = '본 공간은 연천 AI 1기 강사진 인증(관리자 가입 승인 완료) 후 접근할 수 있는 교안/계획표 수록실입니다. 로그인 후 권한을 확인해 주십시오.';
+            }
+
+            renderContent();
+        }
+
+        function openAuthModal() {
+            document.getElementById('auth-modal').classList.remove('hidden');
+            toggleAuthMode('login');
+        }
+        function closeAuthModal() {
+            document.getElementById('auth-modal').classList.add('hidden');
+        }
+        function toggleAuthMode(mode) {
+            authMode = mode;
+            const loginTab = document.getElementById('modal-tab-login');
+            const registerTab = document.getElementById('modal-tab-register');
+            const registerFields = document.getElementById('register-fields');
+            const submitBtn = document.getElementById('auth-submit-btn');
+
+            if (mode === 'login') {
+                loginTab.className = "flex-1 pb-3 text-center text-sm font-bold border-b-2 border-brand-primary text-brand-primary";
+                registerTab.className = "flex-1 pb-3 text-center text-sm font-bold border-b-2 border-transparent text-slate-400";
+                registerFields.classList.add('hidden');
+                submitBtn.innerText = "로그인 완료";
+            } else {
+                registerTab.className = "flex-1 pb-3 text-center text-sm font-bold border-b-2 border-brand-primary text-brand-primary";
+                loginTab.className = "flex-1 pb-3 text-center text-sm font-bold border-b-2 border-transparent text-slate-400";
+                registerFields.classList.remove('hidden');
+                submitBtn.innerText = "회원 가입 신청";
+            }
+        }
+
+        function handleAuthSubmit(event) {
+            event.preventDefault();
+            const email = document.getElementById('auth-email').value;
+            const password = document.getElementById('auth-password').value;
+            const name = document.getElementById('auth-name').value;
+            const role = document.getElementById('auth-role').value;
+
+            let users = getData('users');
+
+            if (authMode === 'login') {
+                const targetUser = users.find(u => u.email === email);
+                if (targetUser) {
+                    currentUser = targetUser;
+                    showToast(`${currentUser.name} 님 환영합니다!`, 'success');
+                    closeAuthModal();
+                    checkAndApplySession();
+                } else if (email === 'admin@yeoncheon.ai') {
+                    currentUser = { email: 'admin@yeoncheon.ai', name: '대표 운영국', role: 'admin', approved: true };
+                    showToast('데모 관리자 계정으로 로그인했습니다.', 'success');
+                    closeAuthModal();
+                    checkAndApplySession();
+                } else {
+                    showToast('가입 정보를 찾을 수 없습니다. 회원가입 탭에서 신규 등록해 주세요.', 'error');
+                }
+            } else {
+                if (users.some(u => u.email === email)) {
+                    showToast('이미 사용 중인 이메일입니다.', 'error');
+                    return;
+                }
+
+                const newUser = {
+                    email,
+                    name,
+                    role,
+                    approved: (role === 'general')
+                };
+
+                users.push(newUser);
+                saveData('users', users);
+                
+                showToast(role === 'instructor' ? '가입 완료! 정강사 권한 승인을 기다려 주세요.' : '회원가입이 완료되었습니다!', 'success');
+                toggleAuthMode('login');
+            }
+        }
+
+        function handleLogout() {
+            currentUser = null;
+            showToast('로그아웃 되었습니다.');
+            switchTab('home');
+            checkAndApplySession();
+        }
+
+        function openEditor(type) {
+            activeEditorMode = type;
+            const title = document.getElementById('editor-title');
+            const fieldsArea = document.getElementById('editor-fields-area');
+
+            if (type === 'intro') {
+                title.innerText = '소개란 문구 수정';
+                fieldsArea.innerHTML = `
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">내용</label>
+                    <textarea id="edit-text-data" rows="8" class="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm">${getData('intro')}</textarea>
+                `;
+            } else if (type === 'greetings') {
+                title.innerText = '인사말 문구 수정';
+                fieldsArea.innerHTML = `
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">내용</label>
+                    <textarea id="edit-text-data" rows="8" class="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm">${getData('greetings')}</textarea>
+                `;
+            }
+            document.getElementById('editor-modal').classList.remove('hidden');
+        }
+
+        function openNoticeModal() {
+            activeEditorMode = 'notice';
+            document.getElementById('editor-title').innerText = '새 공지사항 올리기';
+            document.getElementById('editor-fields-area').innerHTML = `
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">공지사항 제목</label>
+                        <input type="text" id="edit-notice-title" required class="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">공지 내용 본문</label>
+                        <textarea id="edit-notice-content" rows="6" required class="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm"></textarea>
+                    </div>
+                </div>
+            `;
+            document.getElementById('editor-modal').classList.remove('hidden');
+        }
+
+        function openShowcaseModal() {
+            activeEditorMode = 'showcase';
+            document.getElementById('editor-title').innerText = '새 강사 홍보 활동 등록';
+            document.getElementById('editor-fields-area').innerHTML = `
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">수업/강좌 제목</label>
+                        <input type="text" id="edit-showcase-title" required class="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">설명 문구</label>
+                        <textarea id="edit-showcase-desc" rows="4" required class="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">이미지 주소 (Unsplash URL 등)</label>
+                        <input type="url" id="edit-showcase-url" placeholder="https://images.unsplash.com/..." class="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm">
+                    </div>
+                </div>
+            `;
+            document.getElementById('editor-modal').classList.remove('hidden');
+        }
+
+        function openMaterialModal() {
+            activeEditorMode = 'material';
+            document.getElementById('editor-title').innerText = '강사실 자료 파일 게시';
+            document.getElementById('editor-fields-area').innerHTML = `
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">자료/교안 문서명</label>
+                        <input type="text" id="edit-material-title" required class="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">자료 범주</label>
+                        <select id="edit-material-category" class="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm bg-white">
+                            <option value="수업계획표">수업계획표/강의안</option>
+                            <option value="수업 보조자료">수업용 보조 학습교안 PDF</option>
+                            <option value="교구 사용매뉴얼">소프트웨어/교구 사용 매뉴얼</option>
+                        </select>
+                    </div>
+                </div>
+            `;
+            document.getElementById('editor-modal').classList.remove('hidden');
+        }
+
+        function closeEditorModal() {
+            document.getElementById('editor-modal').classList.add('hidden');
+        }
+
+        function handleEditorSubmit(event) {
+            event.preventDefault();
+
+            if (activeEditorMode === 'intro' || activeEditorMode === 'greetings') {
+                const updatedVal = document.getElementById('edit-text-data').value;
+                saveData(activeEditorMode, updatedVal);
+                showToast('내용이 성공적으로 수정 및 반영되었습니다.', 'success');
+            } else if (activeEditorMode === 'notice') {
+                const notices = getData('notices');
+                const title = document.getElementById('edit-notice-title').value;
+                const content = document.getElementById('edit-notice-content').value;
+                
+                notices.unshift({
+                    id: Date.now(),
+                    title,
+                    content,
+                    date: new Date().toISOString().split('T')[0],
+                    author: currentUser ? currentUser.name : '대표 운영국'
+                });
+                saveData('notices', notices);
+                showToast('신규 공지사항이 등록되었습니다.', 'success');
+            } else if (activeEditorMode === 'showcase') {
+                const showcases = getData('showcase');
+                const title = document.getElementById('edit-showcase-title').value;
+                const description = document.getElementById('edit-showcase-desc').value;
+                const defaultUrl = 'https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=600';
+                const imageUrl = document.getElementById('edit-showcase-url').value || defaultUrl;
+
+                showcases.unshift({
+                    id: Date.now(),
+                    title,
+                    instructor: currentUser ? currentUser.name : '김동규 강사',
+                    description,
+                    imageUrl
+                });
+                saveData('showcase', showcases);
+                showToast('수업 활동 홍보 카드가 추가되었습니다.', 'success');
+            } else if (activeEditorMode === 'material') {
+                const materials = getData('materials');
+                const title = document.getElementById('edit-material-title').value;
+                const category = document.getElementById('edit-material-category').value;
+
+                materials.unshift({
+                    id: Date.now(),
+                    title,
+                    category,
+                    author: currentUser ? currentUser.name : '정식 강사'
+                });
+                saveData('materials', materials);
+                showToast('강사실 전용 공유 자료가 업로드되었습니다.', 'success');
+            }
+
+            closeEditorModal();
+            renderContent();
+        }
+
+        function handleConsultingSubmit(event) {
+            event.preventDefault();
+            const applications = getData('applications');
+            
+            const newApp = {
+                id: Date.now(),
+                org: document.getElementById('consult-org').value,
+                name: document.getElementById('consult-name').value,
+                phone: document.getElementById('consult-phone').value,
+                category: document.getElementById('consult-category').value,
+                details: document.getElementById('consult-details').value,
+                date: new Date().toISOString().split('T')[0]
+            };
+
+            applications.unshift(newApp);
+            saveData('applications', applications);
+            
+            showToast('교육 상담 요청이 접수되었습니다! 매칭 강사가 안내드립니다.', 'success');
+            document.getElementById('consulting-form').reset();
+            renderContent();
+        }
+
+        function deleteNotice(id) {
+            openConfirmModal('이 공지사항 글을 정말 삭제하시겠습니까?', () => {
+                let notices = getData('notices');
+                notices = notices.filter(n => n.id !== id);
+                saveData('notices', notices);
+                showToast('공지사항이 삭제되었습니다.');
+                renderContent();
+            });
+        }
+
+        function deleteShowcase(id) {
+            openConfirmModal('이 수업 활동 카드를 삭제하시겠습니까?', () => {
+                let showcases = getData('showcase');
+                showcases = showcases.filter(s => s.id !== id);
+                saveData('showcase', showcases);
+                showToast('활동 카드가 삭제되었습니다.');
+                renderContent();
+            });
+        }
+
+        function deleteMaterial(id) {
+            openConfirmModal('강사실 파일 자료를 삭제하시겠습니까?', () => {
+                let m = getData('materials');
+                m = m.filter(item => item.id !== id);
+                saveData('materials', m);
+                showToast('자료가 삭제되었습니다.');
+                renderContent();
+            });
+        }
+
+        function deleteApplication(id) {
+            openConfirmModal('이 교육 상담 기록을 삭제하시겠습니까?', () => {
+                let apps = getData('applications');
+                apps = apps.filter(item => item.id !== item.id);
+                apps = apps.filter(item => item.id !== id);
+                saveData('applications', apps);
+                showToast('상담 내역이 삭제되었습니다.');
+                renderContent();
+            });
+        }
+
+        function approveInstructor(email) {
+            let users = getData('users');
+            const target = users.find(u => u.email === email);
+            if (target) {
+                target.approved = true;
+                saveData('users', users);
+                showToast(`${target.name} 강사의 가입을 승인했습니다.`, 'success');
+                renderContent();
+                checkAndApplySession();
+            }
+        }
+
+        function deleteUser(email) {
+            openConfirmModal('해당 회원 계정을 삭제하시겠습니까?', () => {
+                let users = getData('users');
+                users = users.filter(u => u.email !== email);
+                saveData('users', users);
+                showToast('회원 계정이 삭제되었습니다.');
+                renderContent();
+                checkAndApplySession();
+            });
+        }
+    </script>
+</body>
 </html>
 
