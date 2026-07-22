@@ -1,68 +1,1408 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="연천 AI 교육 전문가 강사 양성과정 제1기 공식 커뮤니티 & 플랫폼" />
-    <title>연천 AI 교육 전문가 플랫폼 | 제1기 공식 커뮤니티</title>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="연천 AI 교육 전문가 강사 양성과정 제1기 공식 커뮤니티 & 플랫폼" />
+  <title>연천 AI 교육 전문가 플랫폼 | 제1기 공식 커뮤니티</title>
 
-    <!-- GitHub Pages Subpath & Relative Assets Auto-Fix -->
-    <script type="text/javascript">
-      (function() {
-        var l = window.location;
-        var path = l.pathname;
-        
-        // 1. 디렉토리 경로 끝에 '/' 보장
-        if (path.length > 1 && !path.endsWith('/') && !path.split('/').pop().includes('.')) {
-          l.replace(l.protocol + '//' + l.host + path + '/' + l.search + l.hash);
-          return;
-        }
-
-        // 2. 404.html 리다이렉트 파라미터 복원 (SPA 서브라우팅 복원)
-        if (l.search && l.search.indexOf('p=') !== -1) {
-          var params = new URLSearchParams(l.search);
-          var p = params.get('p');
-          var q = params.get('q');
-          if (p !== null) {
-            var baseHref = path.endsWith('/') ? path : path.substring(0, path.lastIndexOf('/') + 1);
-            var newUrl = baseHref.slice(0, -1) + decodeURIComponent(p) + (q ? '?' + decodeURIComponent(q) : '') + l.hash;
-            window.history.replaceState(null, null, newUrl);
+  <!-- 1. Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Pretendard', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif'],
+            display: ['Orbitron', 'sans-serif'],
+          },
+          colors: {
+            cyan: {
+              400: '#22d3ee',
+              500: '#06b6d4',
+              600: '#0891b2',
+            }
           }
         }
-      })();
-    </script>
+      }
+    }
+  </script>
 
-    <!-- Font Awesome 6 CDN -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <!-- 2. React 18 & ReactDOM 18 UMD CDNs -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
 
-    <!-- Google Fonts & Pretendard -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;600;700;800&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet" />
+  <!-- 3. Babel Standalone for in-browser JSX parsing -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-    <!-- Firebase SDK Config (Global window fallback) -->
-    <script>
-      window.firebaseConfig = {
-        apiKey: "AIzaSyBlE093-UtBCsj08i3hcHmxDWc9600TAEg",
-        authDomain: "yc-ai-1stdb.firebaseapp.com",
-        projectId: "yc-ai-1stdb",
-        storageBucket: "yc-ai-1stdb.firebasestorage.app",
-        messagingSenderId: "955983200176",
-        appId: "1:955983200176:web:bc6e1ea21154a502bd2075"
-      };
-    </script>
-  </head>
-  <body class="bg-slate-950 text-slate-100 min-h-screen antialiased">
-    <div id="root">
-      <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; font-family: 'Pretendard', sans-serif; background-color: #0b1120; color: #38bdf8; text-align: center; padding: 20px;">
-        <div style="width: 48px; height: 48px; border: 4px solid rgba(56,189,248,0.2); border-top-color: #38bdf8; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 20px;"></div>
-        <h2 style="font-size: 18px; font-weight: 700; color: #f8fafc; margin-bottom: 8px;">연천 AI 교육 전문가 플랫폼</h2>
-        <p style="font-size: 13px; color: #94a3b8; max-width: 380px; line-height: 1.6;">시스템을 로딩하고 있습니다. 잠시만 기다려 주세요...</p>
-        <style>
-          @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        </style>
-      </div>
+  <!-- 4. Font Awesome 6 CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- 5. Google Fonts & Pretendard -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;600;700;800&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet" />
+
+  <!-- 6. Firebase JS SDK Compat CDNs -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
+  <style>
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      background-color: #0b1120;
+      color: #f1f5f9;
+      overflow-x: hidden;
+    }
+    .glass-card {
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+    }
+    .glass-card-hover:hover {
+      border-color: rgba(6, 182, 212, 0.5);
+      box-shadow: 0 0 20px rgba(6, 182, 212, 0.2);
+    }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #0f172a; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #06b6d4; }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen antialiased">
+
+  <div id="root">
+    <!-- Browser Fallback Spinner while Babel compiles -->
+    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; background-color: #0b1120; color: #38bdf8; text-align: center; padding: 20px;">
+      <div style="width: 48px; height: 48px; border: 4px solid rgba(56,189,248,0.2); border-top-color: #38bdf8; border-radius: 50%; animation: spin 0.8s linear infinite; margin-bottom: 20px;"></div>
+      <h2 style="font-size: 18px; font-weight: 700; color: #f8fafc; margin-bottom: 8px;">연천 AI 교육 전문가 플랫폼</h2>
+      <p style="font-size: 13px; color: #94a3b8;">시스템 및 React 엔진을 로딩하고 있습니다...</p>
+      <style>@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }</style>
     </div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+  </div>
+
+  <script type="text/babel" data-presets="react">
+    const { useState, useEffect } = React;
+
+    // --- Firebase Compat Setup ---
+    const firebaseConfig = {
+      apiKey: "AIzaSyBlE093-UtBCsj08i3hcHmxDWc9600TAEg",
+      authDomain: "yc-ai-1stdb.firebaseapp.com",
+      projectId: "yc-ai-1stdb",
+      storageBucket: "yc-ai-1stdb.firebasestorage.app",
+      messagingSenderId: "955983200176",
+      appId: "1:955983200176:web:bc6e1ea21154a502bd2075"
+    };
+
+    if (window.firebase && !window.firebase.apps.length) {
+      try {
+        window.firebase.initializeApp(firebaseConfig);
+      } catch (e) {
+        console.warn("Firebase initialization skipped:", e);
+      }
+    }
+
+    // --- Default Data ---
+    const DEFAULT_HOME = {
+      heroTagline: "Yeoncheon AI Education Expert 1st Gen",
+      heroTitle: "연천의 교실을 바꾸는 최첨단 지능화 AI 강사단",
+      heroDescription: "인공지능 소프트웨어부터 실물 피지컬 메이커 코딩까지, 연천군 청소년과 지역사회의 디지털 대전환을 완벽하게 이끌어갈 공식 1기 교육 전문가 그룹의 통합 포털입니다.",
+      contactAddress: "경기도 연천군 전곡읍 평화로 연천 청소년문화센터 3층",
+      contactPhone: "031-839-2000 (연천군 청소년 AI교육 행정실)",
+      contactEmail: "contact@yeoncheon-ai.kr"
+    };
+
+    const DEFAULT_GREETINGS = {
+      introTitle: "연천의 미래를 밝히는 AI 교육 인재 양성소",
+      introSubtitle: "연천 AI 교육 전문가 강사 양성과정 제 1기",
+      introContent: "연천군과 전문 지능정보기관이 협력 주관하는 '연천 AI 교육 전문가 강사 양성과정'은 다가오는 디지털 대전환 시대에 연천의 청소년들이 지역을 넘어 글로벌 혁신 인재로 성장하도록 적극 지원합니다.",
+      greetingTitle: "우리지역 디지털 인재 양성을 향한 힘찬 도약",
+      greetingSubtitle: "연천의 미래 교육, 1기 전문 강사진이 앞장서 열어가겠습니다.",
+      greetingContent: "존경하는 연천군민과 교육 관계자 여러분! 연천은 아름다운 대자연과 함께 최첨단 인공지능 기술이 숨쉬는 미래 교육 혁신 도시로 도약하고 있습니다. 1기 강사진 일동은 온 정성을 다해 연천 청소년들의 디지털 역량을 극대화할 것을 약속드립니다.",
+      greetingAuthor: "연천 AI 교육 전문가 강사진 일동",
+      greetingAuthorRole: "공식 1기 대표단 및 교육위원회",
+      introImageUrl: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&q=80&w=800"
+    };
+
+    const DEFAULT_FOOTPRINTS = [
+      {
+        id: "f1",
+        date: "2026-03",
+        title: "제1기 전문가 양성과정 입문",
+        subtitle: "AI 리터러시 & 기초 엔지니어링",
+        description: "연천 청소년센터에서 AI 모델 구동 이론 및 블록 코딩, 로보틱스 기초를 융합한 총 40시간의 집중 전문 교육 이수 시작.",
+        category: "expert",
+        imageUrl: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=600"
+      },
+      {
+        id: "f2",
+        date: "2026-04",
+        title: "교수설계 및 마이크로 티칭",
+        subtitle: "강의 교재 개발 및 실전 모의 수업",
+        description: "초중고 발달단계에 맞는 인공지능 윤리, 프롬프트 엔지니어링 수업안을 직접 기획하고 실전 시뮬레이션 및 심층 피드백 수행.",
+        category: "expert",
+        imageUrl: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&q=80&w=600"
+      },
+      {
+        id: "f3",
+        date: "2026-05",
+        title: "관내 초등학교 시범 출강",
+        subtitle: "찾아가는 코딩 & 생성형 미술 교실",
+        description: "연천초, 전곡초 학생을 대상으로 인공지능 원리를 활용한 맞춤형 자율 창의 교실을 운영하여 교육 현장 적용 가능성 전격 입증.",
+        category: "school",
+        imageUrl: "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&q=80&w=600"
+      },
+      {
+        id: "f4",
+        date: "2026-06",
+        title: "청소년 센터 AI 메이커 캠프",
+        subtitle: "피지컬 컴퓨팅으로 그리는 스마트 시티",
+        description: "연천 청소년수련관과 협력하여 2박 3일 융합 캠프 진행. 마이크로비트와 기계학습 센서들을 활용한 스마트 시티 프로젝트 멘토링 주도.",
+        category: "camp",
+        imageUrl: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=600"
+      }
+    ];
+
+    const DEFAULT_SHOWCASE = [
+      {
+        id: "s1",
+        title: "생성형 AI 챗봇 만들기 & 윤리 교육",
+        instructorName: "이정훈 강사",
+        description: "학생들이 학교 급식이나 동아리를 안내하는 지능형 챗봇을 직접 구현하며 LLM 작동 원리와 윤리를 함께 배우는 명품 수업입니다.",
+        imageUrl: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&q=80&w=600",
+        tags: ["ChatGPT", "API 융합", "인공지능 윤리"],
+        date: "2026-07-01"
+      },
+      {
+        id: "s2",
+        title: "엔트리 모션 감지 기반 피지컬 헬스케어 게임",
+        instructorName: "김미경 강사",
+        description: "카메라 모션 추적 AI 센서와 브레드보드를 연동해 청소년들이 스스로 스트레칭 게임을 코딩하는 융합 수업입니다.",
+        imageUrl: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=600",
+        tags: ["엔트리", "비디오인식", "피지컬컴퓨팅"],
+        date: "2026-07-08"
+      },
+      {
+        id: "s3",
+        title: "티처블 머신을 적용한 스마트 친환경 분류기",
+        instructorName: "최영민 강사",
+        description: "재활용품을 자동 판별하는 머신러닝 분류기를 훈련시키고 서보모터 휴지통을 제어하는 몰입형 실습입니다.",
+        imageUrl: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&q=80&w=600",
+        tags: ["티처블머신", "머신러닝", "스마트그린"],
+        date: "2026-07-12"
+      }
+    ];
+
+    const DEFAULT_RESOURCES = [
+      {
+        id: "r1",
+        title: "2026년 하반기 생성형 AI 활용 창의 수업지도안 (초등 중급)",
+        category: "syllabus",
+        description: "이미지 생성 도구와 프롬프트를 융합하여 교과 융합 4차시로 바로 사용 가능한 교사 매뉴얼 및 활동지 포함본.",
+        fileName: "2026_Y_AI_Elementary_Plan.pdf",
+        fileSize: "4.8 MB",
+        author: "박성호 교육팀장",
+        uploadedAt: "2026-07-02",
+        downloads: 32
+      },
+      {
+        id: "r2",
+        title: "마이크로비트 스마트 그린홈 제어용 허브 라이브러리",
+        category: "software",
+        description: "토양수분 센서, RGB LED를 엔트리 블록에서 원활히 제어할 수 있도록 튜닝한 하드웨어 HEX 코드 모음.",
+        fileName: "Microbit_SmartGreenHome_V1.1.zip",
+        fileSize: "14.2 MB",
+        author: "한승우 연구원",
+        uploadedAt: "2026-07-09",
+        downloads: 18
+      }
+    ];
+
+    const DEFAULT_NOTICES = [
+      {
+        id: "n1",
+        title: "📢 [공지] 2026년도 하반기 연천 관내 초/중/고등학교 출강 파견 신청 안내",
+        content: "안녕하세요. 연천 AI 교육 전문가 협의회 사무국입니다. 관내 초중고교를 대상으로 찾아가는 인공지능 교실 및 특강 파견 신청을 상시 접수받고 있습니다. 상단 [교육상담 & 신청] 메뉴에서 신청해 주시면 담당 강사가 상담 전화를 드립니다.",
+        author: "관리자",
+        date: "2026-07-10",
+        views: 145,
+        isImportant: true
+      },
+      {
+        id: "n2",
+        title: "✨ 1기 정강사 인증 완료 공지 및 강사방 전용 권한 안내",
+        content: "전문가 양성과정을 정식으로 수료하신 1기 강사분들의 회원 정보 업데이트가 진행 중입니다. 회원가입 시 '강사 회원'으로 가입해 두시면, 관리자가 확인 후 정강사 권한으로 승인 처리를 해 드립니다.",
+        author: "관리자",
+        date: "2026-07-16",
+        views: 89,
+        isImportant: true
+      }
+    ];
+
+    const DEFAULT_USERS = [
+      { id: 'u_admin', email: 'admin@yeoncheon.kr', name: '최고 관리자', role: 'admin', joinedAt: '2026-01-01' },
+      { id: 'u_inst1', email: 'teacher1@yeoncheon.kr', name: '이정훈 강사', role: 'instructor', affiliation: '연천 AI 1기 대표', specialty: '생성형 AI, 챗봇', joinedAt: '2026-03-01' },
+      { id: 'u_inst2', email: 'pending1@yeoncheon.kr', name: '홍길동 수료생', role: 'instructor_pending', affiliation: '전곡 교육센터', specialty: '엔트리, 아두이노', joinedAt: '2026-07-01' }
+    ];
+
+    // Helper for LocalStorage Persistence
+    function usePersistentState(key, initial) {
+      const [state, setState] = useState(() => {
+        try {
+          const saved = localStorage.getItem(key);
+          return saved ? JSON.parse(saved) : initial;
+        } catch (e) {
+          return initial;
+        }
+      });
+      useEffect(() => {
+        try {
+          localStorage.setItem(key, JSON.stringify(state));
+        } catch (e) {}
+      }, [key, state]);
+      return [state, setState];
+    }
+
+    // --- MAIN APP COMPONENT ---
+    function App() {
+      const [activeTab, setActiveTab] = useState('home');
+      const [currentUser, setCurrentUser] = usePersistentState('yc_user', null);
+      const [authModalOpen, setAuthModalOpen] = useState(false);
+      const [adminModalOpen, setAdminModalOpen] = useState(false);
+
+      const [homeData, setHomeData] = usePersistentState('yc_home', DEFAULT_HOME);
+      const [greetingsData, setGreetingsData] = usePersistentState('yc_greetings', DEFAULT_GREETINGS);
+      const [footprints, setFootprints] = usePersistentState('yc_footprints', DEFAULT_FOOTPRINTS);
+      const [showcases, setShowcases] = usePersistentState('yc_showcase', DEFAULT_SHOWCASE);
+      const [resources, setResources] = usePersistentState('yc_resources', DEFAULT_RESOURCES);
+      const [notices, setNotices] = usePersistentState('yc_notices', DEFAULT_NOTICES);
+      const [applications, setApplications] = usePersistentState('yc_applications', []);
+      const [registeredUsers, setRegisteredUsers] = usePersistentState('yc_users', DEFAULT_USERS);
+
+      return (
+        <div className="min-h-screen flex flex-col bg-slate-950 text-slate-100 selection:bg-cyan-500 selection:text-slate-950">
+          
+          {/* HEADER */}
+          <header className="sticky top-0 z-40 bg-slate-900/90 backdrop-blur-md border-b border-cyan-500/20 shadow-lg">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="flex items-center justify-between h-20">
+                
+                {/* Logo & Slogan */}
+                <div className="flex items-center gap-3 cursor-pointer" onClick={() => setActiveTab('home')}>
+                  <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-slate-950 font-black text-xl shadow-lg shadow-cyan-500/30">
+                    AI
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span className="font-extrabold text-lg sm:text-xl tracking-tight text-white font-sans">연천 AI 교육 전문가</span>
+                      <span className="px-2 py-0.5 text-[10px] font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 rounded-full font-display">1ST GEN</span>
+                    </div>
+                    <p className="text-xs text-cyan-400/90 font-medium hidden sm:block">
+                      {greetingsData.introTitle || "연천의 미래를 밝히는 AI 교육 인재 양성소"}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Right Action Buttons */}
+                <div className="flex items-center gap-2 sm:gap-3">
+                  {currentUser ? (
+                    <div className="flex items-center gap-2 bg-slate-800/80 border border-slate-700 px-3 py-1.5 rounded-xl">
+                      <div className="w-7 h-7 rounded-full bg-cyan-500 text-slate-950 font-bold flex items-center justify-center text-xs">
+                        {currentUser.name.slice(0, 1)}
+                      </div>
+                      <div className="text-left hidden md:block">
+                        <div className="text-xs font-bold text-white leading-none">{currentUser.name}</div>
+                        <div className="text-[10px] text-cyan-400 font-semibold">
+                          {currentUser.role === 'admin' ? '최고 관리자' : currentUser.role === 'instructor' ? '승인 정강사' : currentUser.role === 'instructor_pending' ? '강사 승인 대기' : '일반 회원'}
+                        </div>
+                      </div>
+                      <button
+                        onClick={() => setCurrentUser(null)}
+                        className="ml-2 text-slate-400 hover:text-red-400 text-xs font-bold transition"
+                        title="로그아웃"
+                      >
+                        <i className="fa-solid fa-right-from-bracket"></i>
+                      </button>
+                    </div>
+                  ) : (
+                    <button
+                      onClick={() => setAuthModalOpen(true)}
+                      className="px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-cyan-500/30 transition flex items-center gap-1.5 shadow-md cursor-pointer"
+                    >
+                      <i className="fa-solid fa-user-lock text-cyan-400"></i>
+                      <span>로그인 / 회원가입</span>
+                    </button>
+                  )}
+
+                  {/* Admin Button */}
+                  <button
+                    onClick={() => {
+                      if (currentUser?.role === 'admin') setAdminModalOpen(true);
+                      else setAuthModalOpen(true);
+                    }}
+                    className="px-3.5 py-2 rounded-xl text-xs font-extrabold bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 hover:brightness-110 transition shadow-md shadow-cyan-500/20 flex items-center gap-1.5 cursor-pointer"
+                  >
+                    <i className="fa-solid fa-gears"></i>
+                    <span className="hidden sm:inline">관리자 모드</span>
+                  </button>
+                </div>
+
+              </div>
+
+              {/* Navigation Tabs Bar */}
+              <nav className="flex items-center gap-1 overflow-x-auto pb-3 pt-1 border-t border-slate-800/80">
+                <NavBtn id="home" label="홈 & 소개" icon="fa-house" activeTab={activeTab} setActiveTab={setActiveTab} />
+                <NavBtn id="greetings" label="취지 & 인사말" icon="fa-scroll" activeTab={activeTab} setActiveTab={setActiveTab} />
+                <NavBtn id="footprints" label="발자취 갤러리" icon="fa-shoe-prints" activeTab={activeTab} setActiveTab={setActiveTab} />
+                <NavBtn id="showcase" label="강사 쇼케이스" icon="fa-chalkboard-user" activeTab={activeTab} setActiveTab={setActiveTab} />
+                <NavBtn id="application" label="교육상담 & 신청" icon="fa-pen-to-square" activeTab={activeTab} setActiveTab={setActiveTab} />
+                <NavBtn id="instructorZone" label="강사 전용방" icon="fa-folder-open" activeTab={activeTab} setActiveTab={setActiveTab} isBadge={currentUser?.role === 'instructor'} />
+                <NavBtn id="notice" label="공지사항" icon="fa-bullhorn" activeTab={activeTab} setActiveTab={setActiveTab} />
+              </nav>
+
+            </div>
+          </header>
+
+          {/* MAIN CONTAINER */}
+          <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            {activeTab === 'home' && <HomeSection homeData={homeData} setActiveTab={setActiveTab} />}
+            {activeTab === 'greetings' && <GreetingsSection greetingsData={greetingsData} />}
+            {activeTab === 'footprints' && <FootprintsSection footprints={footprints} />}
+            {activeTab === 'showcase' && <ShowcaseSection showcases={showcases} />}
+            {activeTab === 'application' && <ApplicationSection applications={applications} setApplications={setApplications} />}
+            {activeTab === 'instructorZone' && (
+              <InstructorZoneSection
+                currentUser={currentUser}
+                setAuthModalOpen={setAuthModalOpen}
+                resources={resources}
+                setResources={setResources}
+              />
+            )}
+            {activeTab === 'notice' && <NoticeSection notices={notices} />}
+          </main>
+
+          {/* FOOTER */}
+          <footer className="bg-slate-900 border-t border-slate-800 py-10 mt-12 text-slate-400 text-xs">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+              <div>
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="font-extrabold text-sm text-white font-sans">연천 AI 교육 전문가 플랫폼</span>
+                  <span className="text-[10px] text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded border border-cyan-500/20">제1기 공식 커뮤니티</span>
+                </div>
+                <p className="text-slate-400 text-xs leading-relaxed max-w-xl">
+                  {homeData.contactAddress} | 문의: {homeData.contactPhone} | 이메일: {homeData.contactEmail}
+                </p>
+                <p className="text-slate-500 text-[11px] mt-2">
+                  © 2026 Yeoncheon AI Education Instructor Association 1st Gen. All rights reserved.
+                </p>
+              </div>
+              <div className="flex items-center gap-4 text-slate-400 text-sm">
+                <span className="hover:text-cyan-400 transition cursor-pointer" onClick={() => setActiveTab('greetings')}>개설취지</span>
+                <span>•</span>
+                <span className="hover:text-cyan-400 transition cursor-pointer" onClick={() => setActiveTab('application')}>출강신청</span>
+                <span>•</span>
+                <span className="hover:text-cyan-400 transition cursor-pointer" onClick={() => setAuthModalOpen(true)}>회원센터</span>
+              </div>
+            </div>
+          </footer>
+
+          {/* AUTH MODAL */}
+          {authModalOpen && (
+            <AuthModal
+              isOpen={authModalOpen}
+              onClose={() => setAuthModalOpen(false)}
+              setCurrentUser={setCurrentUser}
+              registeredUsers={registeredUsers}
+              setRegisteredUsers={setRegisteredUsers}
+            />
+          )}
+
+          {/* ADMIN MODAL */}
+          {adminModalOpen && (
+            <AdminModal
+              isOpen={adminModalOpen}
+              onClose={() => setAdminModalOpen(false)}
+              homeData={homeData}
+              setHomeData={setHomeData}
+              greetingsData={greetingsData}
+              setGreetingsData={setGreetingsData}
+              footprints={footprints}
+              setFootprints={setFootprints}
+              showcases={showcases}
+              setShowcases={setShowcases}
+              resources={resources}
+              setResources={setResources}
+              notices={notices}
+              setNotices={setNotices}
+              applications={applications}
+              setApplications={setApplications}
+              registeredUsers={registeredUsers}
+              setRegisteredUsers={setRegisteredUsers}
+            />
+          )}
+
+        </div>
+      );
+    }
+
+    // --- Sub components ---
+    function NavBtn({ id, label, icon, activeTab, setActiveTab, isBadge }) {
+      const active = activeTab === id;
+      return (
+        <button
+          onClick={() => setActiveTab(id)}
+          className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition whitespace-nowrap cursor-pointer ${
+            active
+              ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/30'
+              : 'text-slate-300 hover:text-white hover:bg-slate-800/60'
+          }`}
+        >
+          <i className={`fa-solid ${icon} ${active ? 'text-slate-950' : 'text-cyan-400'}`}></i>
+          <span>{label}</span>
+          {isBadge && <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>}
+        </button>
+      );
+    }
+
+    function HomeSection({ homeData, setActiveTab }) {
+      const [ageOpt, setAgeOpt] = useState('elem');
+      const [catOpt, setCatOpt] = useState('mobility');
+      const [matchResult, setMatchResult] = useState(null);
+
+      const handleAnalyze = () => {
+        let score = 92;
+        let title = "자율주행 & 센싱 로보틱스 메이커 키트";
+        let desc = "엔트리 센서 연동 및 마이크로비트 피지컬 키트 출강 과정과 98% 일치합니다.";
+        if (ageOpt === 'mid') {
+          title = "아두이노 IoT & 머신러닝 스마트팜";
+          desc = "센서 데이터 수집과 지도학습 모델링 실습이 포함된 추천 과정입니다.";
+        } else if (ageOpt === 'high') {
+          title = "생성형 AI 프롬프트 엔지니어링 & LLM API 융합";
+          desc = "파이썬 및 웹 인터페이스 연동 고차원 알고리즘 커리큘럼입니다.";
+        }
+        setMatchResult({ score, title, desc });
+      };
+
+      return (
+        <div className="space-y-12">
+          {/* HERO BANNER */}
+          <div className="relative rounded-3xl overflow-hidden glass-card p-8 sm:p-12 border border-cyan-500/30 bg-gradient-to-r from-slate-900 via-slate-900 to-cyan-950/40">
+            <div className="max-w-2xl relative z-10 space-y-4">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-cyan-500/10 text-cyan-300 border border-cyan-500/30 font-display">
+                ⚡ {homeData.heroTagline}
+              </span>
+              <h1 className="text-3xl sm:text-5xl font-extrabold text-white leading-tight font-sans">
+                {homeData.heroTitle}
+              </h1>
+              <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
+                {homeData.heroDescription}
+              </p>
+              <div className="pt-4 flex flex-wrap gap-3">
+                <button
+                  onClick={() => setActiveTab('application')}
+                  className="px-6 py-3 rounded-xl font-bold text-sm bg-gradient-to-r from-cyan-400 to-blue-500 text-slate-950 hover:brightness-110 transition shadow-lg shadow-cyan-500/25 flex items-center gap-2 cursor-pointer"
+                >
+                  <i className="fa-solid fa-paper-plane"></i>
+                  <span>강사 출강 & 교육 상담 신청</span>
+                </button>
+                <button
+                  onClick={() => setActiveTab('showcase')}
+                  className="px-6 py-3 rounded-xl font-bold text-sm bg-slate-800/80 hover:bg-slate-700 text-white border border-slate-700 transition flex items-center gap-2 cursor-pointer"
+                >
+                  <i className="fa-solid fa-lightbulb text-cyan-400"></i>
+                  <span>수업 설계 둘러보기</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* 3 CORE FEATURES */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="glass-card glass-card-hover p-6 rounded-2xl space-y-3">
+              <div className="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 text-xl font-bold">
+                <i className="fa-solid fa-award"></i>
+              </div>
+              <h3 className="text-base font-bold text-white">1. 검증된 1기 수료 강사단</h3>
+              <p className="text-xs text-slate-300 leading-relaxed">
+                연천군 청소년 센터의 엄격한 40시간 코스를 최우수 수료한 전문가들이 직접 출강합니다.
+              </p>
+            </div>
+            <div className="glass-card glass-card-hover p-6 rounded-2xl space-y-3">
+              <div className="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 text-xl font-bold">
+                <i className="fa-solid fa-microchip"></i>
+              </div>
+              <h3 className="text-base font-bold text-white">2. 실물 피지컬 센싱 교구</h3>
+              <p className="text-xs text-slate-300 leading-relaxed">
+                마이크로비트, 아두이노, 자율주행 모빌리티 등 학생들이 직접 만지고 조작하는 체험 교육.
+              </p>
+            </div>
+            <div className="glass-card glass-card-hover p-6 rounded-2xl space-y-3">
+              <div className="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 text-xl font-bold">
+                <i className="fa-solid fa-handshake-angle"></i>
+              </div>
+              <h3 className="text-base font-bold text-white">3. 원클릭 파견 및 1:1 매칭</h3>
+              <p className="text-xs text-slate-300 leading-relaxed">
+                관내 초중고교 및 기관 담당자 누구나 간편 온라인 접수로 맞춤형 강사와 교재를 지원받습니다.
+              </p>
+            </div>
+          </div>
+
+          {/* CURRICULUM ANALYZER TOOL */}
+          <div className="glass-card p-8 rounded-3xl border border-cyan-500/30 space-y-6">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-cyan-500 text-slate-950 flex items-center justify-center font-bold text-lg">
+                <i className="fa-solid fa-sliders"></i>
+              </div>
+              <div>
+                <h2 className="text-lg font-bold text-white">연천 AI 맞춤형 커리큘럼 분석기</h2>
+                <p className="text-xs text-slate-400">대상 및 희망 카테고리를 선택하면 적합한 피지컬 모듈을 추천해 드립니다.</p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-xs font-bold text-cyan-300 mb-2">1. 대상 연령 선택</label>
+                <select
+                  value={ageOpt}
+                  onChange={e => setAgeOpt(e.target.value)}
+                  className="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs text-white focus:border-cyan-400 outline-none"
+                >
+                  <option value="elem">초등학교 (엔트리 & 피지컬 컴퓨팅)</option>
+                  <option value="mid">중학교 (자유학기제 & 머신러닝)</option>
+                  <option value="high">고등학교 (파이썬 & AI 융합 프로젝트)</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-xs font-bold text-cyan-300 mb-2">2. 희망 카테고리</label>
+                <select
+                  value={catOpt}
+                  onChange={e => setCatOpt(e.target.value)}
+                  className="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs text-white focus:border-cyan-400 outline-none"
+                >
+                  <option value="mobility">자율주행 코딩 & 모빌리티</option>
+                  <option value="media">생성형 AI & 미디어아트</option>
+                  <option value="iot">아두이노 IoT & 친환경 스마트팜</option>
+                </select>
+              </div>
+            </div>
+
+            <button
+              onClick={handleAnalyze}
+              className="w-full py-3 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-extrabold text-xs rounded-xl transition cursor-pointer"
+            >
+              커리큘럼 매칭율 분석하기
+            </button>
+
+            {matchResult && (
+              <div className="p-4 rounded-2xl bg-cyan-950/60 border border-cyan-500/40 text-xs space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="font-extrabold text-cyan-300 text-sm">💡 추천 커리큘럼: {matchResult.title}</span>
+                  <span className="px-2 py-0.5 rounded-full bg-cyan-500 text-slate-950 font-black text-[10px]">매칭율 {matchResult.score}%</span>
+                </div>
+                <p className="text-slate-300 leading-relaxed">{matchResult.desc}</p>
+              </div>
+            )}
+          </div>
+        </div>
+      );
+    }
+
+    function GreetingsSection({ greetingsData }) {
+      return (
+        <div className="space-y-12">
+          {/* INTRO PURPOSE SECTION */}
+          <div className="glass-card p-8 sm:p-10 rounded-3xl border border-cyan-500/20 space-y-6">
+            <div className="flex flex-col md:flex-row items-center gap-8">
+              <div className="w-full md:w-1/2 space-y-4">
+                <span className="px-3 py-1 bg-cyan-500/10 text-cyan-300 border border-cyan-500/30 rounded-full text-xs font-bold">
+                  홈페이지 개설 취지
+                </span>
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-white">
+                  {greetingsData.introTitle}
+                </h2>
+                <h4 className="text-sm font-semibold text-cyan-400">
+                  {greetingsData.introSubtitle}
+                </h4>
+                <p className="text-slate-300 text-xs sm:text-sm leading-relaxed whitespace-pre-line">
+                  {greetingsData.introContent}
+                </p>
+                <div className="flex gap-4 pt-2">
+                  <div className="p-3 bg-slate-900/80 rounded-xl border border-slate-800 text-center flex-1">
+                    <div className="text-lg font-black text-cyan-400 font-display">1ST GEN</div>
+                    <div className="text-[10px] text-slate-400">공식 전문 강사단</div>
+                  </div>
+                  <div className="p-3 bg-slate-900/80 rounded-xl border border-slate-800 text-center flex-1">
+                    <div className="text-lg font-black text-cyan-400 font-display">YEONCHEON</div>
+                    <div className="text-[10px] text-slate-400">관내 교육 거점</div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="w-full md:w-1/2">
+                <img
+                  src={greetingsData.introImageUrl}
+                  alt="교육 모습"
+                  className="rounded-2xl border border-slate-700 shadow-2xl object-cover w-full h-64 sm:h-80"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* OFFICIAL GREETING SECTION */}
+          <div className="glass-card p-8 sm:p-10 rounded-3xl border border-cyan-500/20 space-y-6">
+            <div className="border-l-4 border-cyan-400 pl-4 space-y-1">
+              <span className="text-xs font-bold text-cyan-400">인사말</span>
+              <h3 className="text-xl font-bold text-white">{greetingsData.greetingTitle}</h3>
+              <p className="text-xs text-slate-400">{greetingsData.greetingSubtitle}</p>
+            </div>
+
+            <p className="text-slate-300 text-xs sm:text-sm leading-relaxed whitespace-pre-line">
+              {greetingsData.greetingContent}
+            </p>
+
+            <div className="pt-4 flex items-center justify-end gap-3 text-right">
+              <div>
+                <div className="font-extrabold text-sm text-white">{greetingsData.greetingAuthor}</div>
+                <div className="text-xs text-cyan-400">{greetingsData.greetingAuthorRole}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    function FootprintsSection({ footprints }) {
+      const [filter, setFilter] = useState('all');
+      const filtered = footprints.filter(item => filter === 'all' || item.category === filter);
+
+      return (
+        <div className="space-y-8">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div>
+              <h2 className="text-2xl font-extrabold text-white">교육 과정 발자취 갤러리</h2>
+              <p className="text-xs text-slate-400">1기 전문가 양성과정의 입문부터 현장 출강까지의 역사적 모멘트입니다.</p>
+            </div>
+
+            <div className="flex flex-wrap gap-1.5 bg-slate-900 p-1 rounded-xl border border-slate-800">
+              <button
+                onClick={() => setFilter('all')}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition ${filter === 'all' ? 'bg-cyan-500 text-slate-950' : 'text-slate-400 hover:text-white'}`}
+              >
+                전체
+              </button>
+              <button
+                onClick={() => setFilter('expert')}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition ${filter === 'expert' ? 'bg-cyan-500 text-slate-950' : 'text-slate-400 hover:text-white'}`}
+              >
+                전문가 과정
+              </button>
+              <button
+                onClick={() => setFilter('school')}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition ${filter === 'school' ? 'bg-cyan-500 text-slate-950' : 'text-slate-400 hover:text-white'}`}
+              >
+                학교 출강
+              </button>
+              <button
+                onClick={() => setFilter('camp')}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition ${filter === 'camp' ? 'bg-cyan-500 text-slate-950' : 'text-slate-400 hover:text-white'}`}
+              >
+                청소년 캠프
+              </button>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {filtered.map(item => (
+              <div key={item.id} className="glass-card glass-card-hover rounded-2xl overflow-hidden border border-slate-800 flex flex-col">
+                <img src={item.imageUrl} alt={item.title} className="w-full h-48 object-cover" />
+                <div className="p-6 space-y-2 flex-1 flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-center justify-between text-xs mb-2">
+                      <span className="font-bold text-cyan-400 font-display">{item.date}</span>
+                      <span className="px-2 py-0.5 rounded bg-slate-800 text-slate-300 text-[10px]">
+                        {item.category === 'expert' ? '전문가 양성' : item.category === 'school' ? '학교 출강' : '캠프 활동'}
+                      </span>
+                    </div>
+                    <h3 className="font-extrabold text-base text-white">{item.title}</h3>
+                    <h4 className="text-xs text-cyan-300 font-semibold mb-2">{item.subtitle}</h4>
+                    <p className="text-xs text-slate-400 leading-relaxed">{item.description}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    function ShowcaseSection({ showcases }) {
+      return (
+        <div className="space-y-8">
+          <div>
+            <h2 className="text-2xl font-extrabold text-white">강사진 교육 및 수업설계 공간</h2>
+            <p className="text-xs text-slate-400">1기 강사진들이 개발한 인공지능 커리큘럼과 현장 몰입 모듈입니다.</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {showcases.map(item => (
+              <div key={item.id} className="glass-card glass-card-hover rounded-2xl overflow-hidden border border-slate-800 flex flex-col">
+                <img src={item.imageUrl} alt={item.title} className="w-full h-44 object-cover" />
+                <div className="p-5 space-y-3 flex-1 flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-center justify-between text-xs text-slate-400 mb-1">
+                      <span className="font-bold text-cyan-400">{item.instructorName}</span>
+                      <span>{item.date}</span>
+                    </div>
+                    <h3 className="font-bold text-sm text-white mb-2 leading-snug">{item.title}</h3>
+                    <p className="text-xs text-slate-400 leading-relaxed">{item.description}</p>
+                  </div>
+
+                  <div className="flex flex-wrap gap-1 pt-2">
+                    {item.tags.map((tag, i) => (
+                      <span key={i} className="px-2 py-0.5 rounded bg-cyan-950/80 text-cyan-300 border border-cyan-800 text-[10px]">
+                        #{tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    function ApplicationSection({ applications, setApplications }) {
+      const [form, setForm] = useState({
+        organizationName: '',
+        applicantName: '',
+        phone: '',
+        email: '',
+        desiredDate: '',
+        targetStudents: '초등학교',
+        studentCount: 20,
+        message: ''
+      });
+      const [successMsg, setSuccessMsg] = useState(false);
+      const [searchPhone, setSearchPhone] = useState('');
+      const [searchResults, setSearchResults] = useState(null);
+
+      const handleSubmit = (e) => {
+        e.preventDefault();
+        if (!form.organizationName || !form.applicantName || !form.phone) {
+          alert("기관명, 신청자명, 연락처는 필수 항목입니다.");
+          return;
+        }
+        const newApp = {
+          id: 'app_' + Date.now(),
+          ...form,
+          status: 'pending',
+          appliedAt: new Date().toISOString().slice(0, 10)
+        };
+        setApplications([newApp, ...applications]);
+        setSuccessMsg(true);
+        setForm({
+          organizationName: '',
+          applicantName: '',
+          phone: '',
+          email: '',
+          desiredDate: '',
+          targetStudents: '초등학교',
+          studentCount: 20,
+          message: ''
+        });
+      };
+
+      const handleSearch = () => {
+        if (!searchPhone.trim()) {
+          alert("연락처를 입력해 주세요.");
+          return;
+        }
+        const found = applications.filter(a => a.phone.includes(searchPhone.trim()));
+        setSearchResults(found);
+      };
+
+      return (
+        <div className="space-y-8">
+          <div>
+            <h2 className="text-2xl font-extrabold text-white">찾아가는 AI 코딩 교육상담 & 출강 신청</h2>
+            <p className="text-xs text-slate-400">연천 관내 학교, 기관, 청소년 시설 출강 파견을 수렴하는 공식창구입니다.</p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="lg:col-span-2 glass-card p-6 sm:p-8 rounded-3xl border border-cyan-500/30 space-y-6">
+              <h3 className="text-base font-bold text-white flex items-center gap-2">
+                <i className="fa-solid fa-file-pen text-cyan-400"></i>
+                <span>교육 파견 및 무료 설계 상담서</span>
+              </h3>
+
+              {successMsg && (
+                <div className="p-4 bg-emerald-950/80 border border-emerald-500 text-emerald-300 rounded-2xl text-xs space-y-1">
+                  <div className="font-bold text-sm">✅ 신청서가 성공적으로 접수되었습니다!</div>
+                  <p>1기 전담 강사단이 내용을 검토 후 기재해 주신 연락처로 유선 안내드립니다.</p>
+                </div>
+              )}
+
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-bold text-slate-300 mb-1">학교 / 기관명 *</label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="예: 전곡초등학교 / 청소년 센터"
+                      value={form.organizationName}
+                      onChange={e => setForm({...form, organizationName: e.target.value})}
+                      className="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs text-white focus:border-cyan-400 outline-none"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-300 mb-1">신청자 성함 *</label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="예: 홍길동 교사"
+                      value={form.applicantName}
+                      onChange={e => setForm({...form, applicantName: e.target.value})}
+                      className="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs text-white focus:border-cyan-400 outline-none"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-bold text-slate-300 mb-1">연락처 *</label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="010-0000-0000"
+                      value={form.phone}
+                      onChange={e => setForm({...form, phone: e.target.value})}
+                      className="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs text-white focus:border-cyan-400 outline-none"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-300 mb-1">이메일</label>
+                    <input
+                      type="email"
+                      placeholder="email@example.com"
+                      value={form.email}
+                      onChange={e => setForm({...form, email: e.target.value})}
+                      className="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs text-white focus:border-cyan-400 outline-none"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div>
+                    <label className="block text-xs font-bold text-slate-300 mb-1">희망 일정</label>
+                    <input
+                      type="date"
+                      value={form.desiredDate}
+                      onChange={e => setForm({...form, desiredDate: e.target.value})}
+                      className="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs text-white focus:border-cyan-400 outline-none"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-300 mb-1">교육 대상</label>
+                    <select
+                      value={form.targetStudents}
+                      onChange={e => setForm({...form, targetStudents: e.target.value})}
+                      className="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs text-white focus:border-cyan-400 outline-none"
+                    >
+                      <option value="초등학교">초등학교</option>
+                      <option value="중학교">중학교</option>
+                      <option value="고등학교">고등학교</option>
+                      <option value="청소년기관/기타">청소년기관/기타</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-300 mb-1">예상 인원 (명)</label>
+                    <input
+                      type="number"
+                      value={form.studentCount}
+                      onChange={e => setForm({...form, studentCount: Number(e.target.value)})}
+                      className="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs text-white focus:border-cyan-400 outline-none"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-300 mb-1">요청 및 문의 사항</label>
+                  <textarea
+                    rows="3"
+                    placeholder="희망하는 모듈(예: 자율주행, 생성형 AI)이나 특이사항을 적어주세요."
+                    value={form.message}
+                    onChange={e => setForm({...form, message: e.target.value})}
+                    className="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs text-white focus:border-cyan-400 outline-none resize-none"
+                  ></textarea>
+                </div>
+
+                <button
+                  type="submit"
+                  className="w-full py-3.5 bg-gradient-to-r from-cyan-400 to-blue-500 text-slate-950 font-extrabold text-xs rounded-xl hover:brightness-110 transition shadow-lg cursor-pointer"
+                >
+                  출강 신청서 제출하기
+                </button>
+              </form>
+            </div>
+
+            {/* INQUIRY STATUS SIDEBAR */}
+            <div className="glass-card p-6 rounded-3xl border border-slate-800 space-y-4">
+              <h3 className="text-sm font-bold text-white flex items-center gap-2">
+                <i className="fa-solid fa-magnifying-glass text-cyan-400"></i>
+                <span>신청 처리 상태 조회</span>
+              </h3>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                신청 시 등록하신 전화번호로 진행 상황을 즉시 확인하실 수 있습니다.
+              </p>
+
+              <div className="space-y-2">
+                <input
+                  type="text"
+                  placeholder="전화번호 입력 (010-0000-0000)"
+                  value={searchPhone}
+                  onChange={e => setSearchPhone(e.target.value)}
+                  className="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs text-white focus:border-cyan-400 outline-none"
+                />
+                <button
+                  onClick={handleSearch}
+                  className="w-full py-2.5 bg-slate-800 hover:bg-slate-700 text-cyan-300 font-bold text-xs rounded-xl border border-cyan-500/30 transition cursor-pointer"
+                >
+                  조회하기
+                </button>
+              </div>
+
+              {searchResults && (
+                <div className="pt-2 space-y-2">
+                  <div className="text-xs font-bold text-slate-300">검색 결과 ({searchResults.length}건)</div>
+                  {searchResults.length === 0 ? (
+                    <div className="p-3 bg-slate-900/60 rounded-xl text-xs text-slate-500">일치하는 신청 내역이 없습니다.</div>
+                  ) : (
+                    searchResults.map(app => (
+                      <div key={app.id} className="p-3 bg-slate-900 rounded-xl border border-slate-800 text-xs space-y-1">
+                        <div className="flex items-center justify-between font-bold text-white">
+                          <span>{app.organizationName}</span>
+                          <span className={`px-2 py-0.5 rounded text-[10px] ${app.status === 'approved' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-amber-500/20 text-amber-400'}`}>
+                            {app.status === 'approved' ? '배정완료' : '검토중'}
+                          </span>
+                        </div>
+                        <div className="text-slate-400 text-[11px]">{app.applicantName} | {app.appliedAt}</div>
+                      </div>
+                    ))
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    function InstructorZoneSection({ currentUser, setAuthModalOpen, resources, setResources }) {
+      const isApproved = currentUser?.role === 'instructor' || currentUser?.role === 'admin';
+      const [filterCat, setFilterCat] = useState('all');
+
+      if (!currentUser) {
+        return (
+          <div className="glass-card p-12 rounded-3xl text-center max-w-lg mx-auto border border-cyan-500/30 space-y-4">
+            <div className="w-16 h-16 rounded-2xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 flex items-center justify-center mx-auto text-2xl font-bold">
+              <i className="fa-solid fa-lock"></i>
+            </div>
+            <h2 className="text-xl font-bold text-white">승인된 강사 전용 공간</h2>
+            <p className="text-xs text-slate-400 leading-relaxed">
+              수업 계획표 및 커리큘럼 자료실은 연천 AI 1기 승인 정강사만 접근하실 수 있습니다.
+            </p>
+            <button
+              onClick={() => setAuthModalOpen(true)}
+              className="px-6 py-2.5 bg-cyan-500 text-slate-950 font-extrabold text-xs rounded-xl shadow-lg hover:brightness-110 transition cursor-pointer"
+            >
+              로그인 / 강사 승인 요청
+            </button>
+          </div>
+        );
+      }
+
+      if (!isApproved) {
+        return (
+          <div className="glass-card p-12 rounded-3xl text-center max-w-lg mx-auto border border-amber-500/30 space-y-4">
+            <div className="w-16 h-16 rounded-2xl bg-amber-500/10 text-amber-400 border border-amber-500/30 flex items-center justify-center mx-auto text-2xl font-bold">
+              <i className="fa-solid fa-hourglass-half"></i>
+            </div>
+            <h2 className="text-xl font-bold text-white">관리자 승인 대기 상태</h2>
+            <p className="text-xs text-slate-400 leading-relaxed">
+              안녕하세요, <strong className="text-white">{currentUser.name}</strong> 님. 현재 강사 회원 자격 심사가 진행 중입니다. 승인이 완료되면 모든 자료를 다운로드하실 수 있습니다.
+            </p>
+          </div>
+        );
+      }
+
+      const filtered = resources.filter(r => filterCat === 'all' || r.category === filterCat);
+
+      return (
+        <div className="space-y-8">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div>
+              <div className="flex items-center gap-2">
+                <h2 className="text-2xl font-extrabold text-white">강사 전용 자료실 & 강의계획서</h2>
+                <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-bold">
+                  🔐 정강사 전용
+                </span>
+              </div>
+              <p className="text-xs text-slate-400 mt-1">1기 강사진의 수업 지도안, HW/SW 파일 및 교육자료를 자유롭게 다운로드하세요.</p>
+            </div>
+
+            <div className="flex gap-2">
+              <button
+                onClick={() => setFilterCat('all')}
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition ${filterCat === 'all' ? 'bg-cyan-500 text-slate-950' : 'bg-slate-800 text-slate-400'}`}
+              >
+                전체
+              </button>
+              <button
+                onClick={() => setFilterCat('syllabus')}
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition ${filterCat === 'syllabus' ? 'bg-cyan-500 text-slate-950' : 'bg-slate-800 text-slate-400'}`}
+              >
+                수업지도안
+              </button>
+              <button
+                onClick={() => setFilterCat('software')}
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition ${filterCat === 'software' ? 'bg-cyan-500 text-slate-950' : 'bg-slate-800 text-slate-400'}`}
+              >
+                SW / 라이브러리
+              </button>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {filtered.map(res => (
+              <div key={res.id} className="glass-card glass-card-hover p-6 rounded-2xl border border-slate-800 space-y-4">
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <span className="px-2 py-0.5 rounded bg-cyan-950 text-cyan-400 border border-cyan-800 text-[10px] font-bold">
+                      {res.category === 'syllabus' ? '교교/강의안' : 'SW자료'}
+                    </span>
+                    <h3 className="font-extrabold text-sm text-white mt-1">{res.title}</h3>
+                  </div>
+                  <i className="fa-solid fa-file-arrow-down text-cyan-400 text-xl"></i>
+                </div>
+
+                <p className="text-xs text-slate-300 leading-relaxed">{res.description}</p>
+
+                <div className="p-3 bg-slate-900 rounded-xl border border-slate-800/80 flex items-center justify-between text-xs">
+                  <div className="flex items-center gap-2 text-slate-400">
+                    <i className="fa-solid fa-paperclip"></i>
+                    <span className="font-mono text-[11px] text-white">{res.fileName}</span>
+                    <span className="text-[10px]">({res.fileSize})</span>
+                  </div>
+                  <button
+                    onClick={() => alert(`${res.fileName} 파일 다운로드가 시작되었습니다.`)}
+                    className="px-3 py-1 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-[11px] rounded-lg transition cursor-pointer"
+                  >
+                    다운로드
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    function NoticeSection({ notices }) {
+      const [selectedNotice, setSelectedNotice] = useState(null);
+
+      return (
+        <div className="space-y-8">
+          <div>
+            <h2 className="text-2xl font-extrabold text-white">공지사항 & 최신 소식</h2>
+            <p className="text-xs text-slate-400">연천 AI 교육 전문가 협의회의 공식 알림 및 출강 소식입니다.</p>
+          </div>
+
+          <div className="glass-card rounded-2xl border border-slate-800 overflow-hidden">
+            <div className="divide-y divide-slate-800/80">
+              {notices.map(n => (
+                <div
+                  key={n.id}
+                  onClick={() => setSelectedNotice(selectedNotice?.id === n.id ? null : n)}
+                  className="p-5 hover:bg-slate-800/50 transition cursor-pointer space-y-2"
+                >
+                  <div className="flex items-center justify-between gap-4">
+                    <div className="flex items-center gap-2">
+                      {n.isImportant && (
+                        <span className="px-2 py-0.5 bg-red-500/20 text-red-400 border border-red-500/30 rounded text-[10px] font-bold">
+                          중요
+                        </span>
+                      )}
+                      <h3 className="font-bold text-sm text-white">{n.title}</h3>
+                    </div>
+                    <span className="text-xs text-slate-500 font-mono">{n.date}</span>
+                  </div>
+
+                  {selectedNotice?.id === n.id && (
+                    <div className="pt-3 border-t border-slate-800 text-xs text-slate-300 leading-relaxed whitespace-pre-line bg-slate-900/60 p-4 rounded-xl mt-2">
+                      {n.content}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // --- AUTH MODAL ---
+    function AuthModal({ isOpen, onClose, setCurrentUser, registeredUsers, setRegisteredUsers }) {
+      const [mode, setMode] = useState('login'); // login | signup
+      const [email, setEmail] = useState('');
+      const [password, setPassword] = useState('');
+      const [name, setName] = useState('');
+      const [role, setRole] = useState('user'); // user | instructor
+
+      if (!isOpen) return null;
+
+      const handleAuth = (e) => {
+        e.preventDefault();
+        if (mode === 'login') {
+          const user = registeredUsers.find(u => u.email === email);
+          if (user) {
+            setCurrentUser(user);
+            onClose();
+          } else {
+            alert("등록되지 않은 이메일입니다. 회원가입을 먼저 진행해 주세요.");
+          }
+        } else {
+          if (!name || !email) {
+            alert("이름과 이메일을 입력해 주세요.");
+            return;
+          }
+          const newUser = {
+            id: 'u_' + Date.now(),
+            email,
+            name,
+            role: role === 'instructor' ? 'instructor_pending' : 'user',
+            joinedAt: new Date().toISOString().slice(0, 10)
+          };
+          setRegisteredUsers([...registeredUsers, newUser]);
+          setCurrentUser(newUser);
+          alert(role === 'instructor' ? "강사 회원가입 완료! 관리자의 정강사 승인 후 강사방 이용이 가능합니다." : "회원가입이 완료되었습니다.");
+          onClose();
+        }
+      };
+
+      return (
+        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="glass-card max-w-md w-full p-8 rounded-3xl border border-cyan-500/40 relative space-y-6">
+            <button onClick={onClose} className="absolute top-4 right-4 text-slate-400 hover:text-white">
+              <i className="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <div className="text-center space-y-1">
+              <h3 className="text-xl font-bold text-white">{mode === 'login' ? '로그인' : '회원가입'}</h3>
+              <p className="text-xs text-slate-400">연천 AI 교육 전문가 플랫폼 통합 계정</p>
+            </div>
+
+            <form onSubmit={handleAuth} className="space-y-4">
+              {mode === 'signup' && (
+                <div>
+                  <label className="block text-xs font-bold text-slate-300 mb-1">성함 *</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="홍길동"
+                    value={name}
+                    onChange={e => setName(e.target.value)}
+                    className="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs text-white focus:border-cyan-400 outline-none"
+                  />
+                </div>
+              )}
+
+              <div>
+                <label className="block text-xs font-bold text-slate-300 mb-1">이메일 *</label>
+                <input
+                  type="email"
+                  required
+                  placeholder="name@example.com"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  className="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs text-white focus:border-cyan-400 outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-300 mb-1">비밀번호 *</label>
+                <input
+                  type="password"
+                  required
+                  placeholder="••••••••"
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
+                  className="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs text-white focus:border-cyan-400 outline-none"
+                />
+              </div>
+
+              {mode === 'signup' && (
+                <div>
+                  <label className="block text-xs font-bold text-slate-300 mb-1">회원 구분 *</label>
+                  <div className="grid grid-cols-2 gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setRole('user')}
+                      className={`p-2.5 rounded-xl text-xs font-bold border transition ${role === 'user' ? 'bg-cyan-500 text-slate-950 border-cyan-400' : 'bg-slate-900 text-slate-400 border-slate-700'}`}
+                    >
+                      일반 회원 (학부모/교사)
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setRole('instructor')}
+                      className={`p-2.5 rounded-xl text-xs font-bold border transition ${role === 'instructor' ? 'bg-cyan-500 text-slate-950 border-cyan-400' : 'bg-slate-900 text-slate-400 border-slate-700'}`}
+                    >
+                      1기 강사 회원
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              <button
+                type="submit"
+                className="w-full py-3 bg-gradient-to-r from-cyan-400 to-blue-500 text-slate-950 font-extrabold text-xs rounded-xl shadow-lg hover:brightness-110 transition cursor-pointer"
+              >
+                {mode === 'login' ? '로그인' : '회원가입 신청'}
+              </button>
+            </form>
+
+            <div className="text-center text-xs text-slate-400">
+              {mode === 'login' ? (
+                <span>계정이 없으신가요? <button onClick={() => setMode('signup')} className="text-cyan-400 font-bold underline ml-1">회원가입</button></span>
+              ) : (
+                <span>이미 계정이 있으신가요? <button onClick={() => setMode('login')} className="text-cyan-400 font-bold underline ml-1">로그인</button></span>
+              )}
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // --- ADMIN MODAL ---
+    function AdminModal({
+      isOpen, onClose, homeData, setHomeData, greetingsData, setGreetingsData,
+      footprints, setFootprints, showcases, setShowcases, notices, setNotices,
+      applications, setApplications, registeredUsers, setRegisteredUsers
+    }) {
+      const [adminTab, setAdminTab] = useState('users');
+
+      if (!isOpen) return null;
+
+      const approveInstructor = (userId) => {
+        setRegisteredUsers(registeredUsers.map(u => u.id === userId ? { ...u, role: 'instructor' } : u));
+      };
+
+      const approveApp = (appId) => {
+        setApplications(applications.map(a => a.id === appId ? { ...a, status: 'approved' } : a));
+      };
+
+      return (
+        <div className="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4">
+          <div className="glass-card max-w-4xl w-full h-[85vh] rounded-3xl border border-cyan-500/50 flex flex-col overflow-hidden">
+            <div className="p-6 border-b border-slate-800 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-lg bg-cyan-500 text-slate-950 font-bold flex items-center justify-center">
+                  <i className="fa-solid fa-gears"></i>
+                </div>
+                <h2 className="text-lg font-bold text-white">통합 관리자 콘솔</h2>
+              </div>
+              <button onClick={onClose} className="text-slate-400 hover:text-white">
+                <i className="fa-solid fa-xmark text-lg"></i>
+              </button>
+            </div>
+
+            <div className="flex flex-1 overflow-hidden">
+              <div className="w-48 bg-slate-900/80 p-4 border-r border-slate-800 space-y-1">
+                <button
+                  onClick={() => setAdminTab('users')}
+                  className={`w-full text-left px-3 py-2 rounded-xl text-xs font-bold transition ${adminTab === 'users' ? 'bg-cyan-500 text-slate-950' : 'text-slate-400'}`}
+                >
+                  👥 강사/회원 승인
+                </button>
+                <button
+                  onClick={() => setAdminTab('apps')}
+                  className={`w-full text-left px-3 py-2 rounded-xl text-xs font-bold transition ${adminTab === 'apps' ? 'bg-cyan-500 text-slate-950' : 'text-slate-400'}`}
+                >
+                  📑 출강신청 관리
+                </button>
+              </div>
+
+              <div className="flex-1 p-6 overflow-y-auto space-y-4">
+                {adminTab === 'users' && (
+                  <div className="space-y-4">
+                    <h3 className="font-bold text-white text-sm">회원 및 강사 승인 목록</h3>
+                    <div className="space-y-2">
+                      {registeredUsers.map(u => (
+                        <div key={u.id} className="p-3 bg-slate-900 rounded-xl border border-slate-800 flex items-center justify-between text-xs">
+                          <div>
+                            <div className="font-bold text-white">{u.name} ({u.email})</div>
+                            <div className="text-slate-400 text-[11px]">권한: {u.role} | 가입일: {u.joinedAt}</div>
+                          </div>
+                          {u.role === 'instructor_pending' && (
+                            <button
+                              onClick={() => approveInstructor(u.id)}
+                              className="px-3 py-1 bg-emerald-500 text-slate-950 font-bold rounded-lg cursor-pointer"
+                            >
+                              정강사 승인
+                            </button>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {adminTab === 'apps' && (
+                  <div className="space-y-4">
+                    <h3 className="font-bold text-white text-sm">접수된 출강 신청</h3>
+                    <div className="space-y-2">
+                      {applications.length === 0 ? (
+                        <div className="text-xs text-slate-500">접수된 신청이 없습니다.</div>
+                      ) : (
+                        applications.map(a => (
+                          <div key={a.id} className="p-4 bg-slate-900 rounded-xl border border-slate-800 text-xs space-y-2">
+                            <div className="flex justify-between font-bold text-white">
+                              <span>{a.organizationName} ({a.applicantName})</span>
+                              <span className={a.status === 'approved' ? 'text-emerald-400' : 'text-amber-400'}>
+                                {a.status === 'approved' ? '배정완료' : '검토중'}
+                              </span>
+                            </div>
+                            <p className="text-slate-400">{a.phone} | 대상: {a.targetStudents} | 희망일: {a.desiredDate}</p>
+                            {a.status === 'pending' && (
+                              <button
+                                onClick={() => approveApp(a.id)}
+                                className="px-3 py-1 bg-cyan-500 text-slate-950 font-bold rounded-lg cursor-pointer"
+                              >
+                                강사 배정 완료 처리
+                              </button>
+                            )}
+                          </div>
+                        ))
+                      )}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // --- MOUNT REACT APP ---
+    const rootElement = document.getElementById('root');
+    if (rootElement) {
+      const root = ReactDOM.createRoot(rootElement);
+      root.render(<App />);
+    }
+  </script>
+</body>
 </html>
