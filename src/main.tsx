@@ -43,8 +43,16 @@ function MainApp() {
     const handleError = (event: ErrorEvent) => {
       setError(event.error || new Error(event.message));
     };
+    const handleRejection = (event: PromiseRejectionEvent) => {
+      const err = event.reason instanceof Error ? event.reason : new Error(String(event.reason));
+      setError(err);
+    };
     window.addEventListener('error', handleError);
-    return () => window.removeEventListener('error', handleError);
+    window.addEventListener('unhandledrejection', handleRejection);
+    return () => {
+      window.removeEventListener('error', handleError);
+      window.removeEventListener('unhandledrejection', handleRejection);
+    };
   }, []);
 
   const handleReset = () => {
@@ -59,8 +67,12 @@ function MainApp() {
   return <App />;
 }
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <MainApp />
-  </StrictMode>,
-);
+const container = document.getElementById('root');
+if (container) {
+  const root = createRoot(container);
+  root.render(
+    <StrictMode>
+      <MainApp />
+    </StrictMode>
+  );
+}
